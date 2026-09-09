@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Compounder Index — Tenet Advisory & Investments</title>
+<style>
+  :root{
+    --purple:#4F1352;
+    --pink:#D10079;
+    --purple-grey:#998CA0;
+    --body:#404040;
+    --light-bg:#F3EFF4;
+    --tint90:#614265;
+    --tint80:#735478;
+    --tint70:#84668A;
+    --black25:#BFBFBF;
+    --black50:#808080;
+    --white:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:Arial, Helvetica, sans-serif;
+    color:var(--body);
+    background:var(--light-bg);
+    line-height:1.5;
+  }
+  .topbar{
+    background:var(--white);
+    border-bottom:3px solid var(--purple);
+    padding:18px 32px;
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .wordmark-group{display:flex;align-items:baseline;gap:12px;}
+  .wordmark{
+    font-weight:bold;
+    font-size:22px;
+    letter-spacing:3px;
+    color:var(--purple);
+  }
+  .tagline{
+    font-size:12px;
+    color:var(--purple-grey);
+    letter-spacing:0.5px;
+  }
+  .tool-label{
+    font-size:13px;
+    color:var(--pink);
+    font-weight:bold;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+  }
+  .progress-wrap{
+    height:5px;
+    background:var(--black25);
+    width:100%;
+  }
+  .progress-wrap.hidden{display:none;}
+  .progress-bar{
+    height:100%;
+    background:linear-gradient(90deg, var(--purple), var(--pink));
+    width:0%;
+    transition:width 0.35s ease;
+  }
+  .container{
+    max-width:760px;
+    margin:0 auto;
+    padding:36px 20px 80px;
+  }
+  .card{
+    background:var(--white);
+    border:1px solid var(--black25);
+    border-radius:14px;
+    padding:44px;
+    box-shadow:0 2px 14px rgba(79,19,82,0.06);
+  }
+  .card.hidden{display:none;}
+  h1{
+    font-size:30px;
+    color:var(--purple);
+    margin:0 0 6px;
+    font-weight:bold;
+  }
+  h2{
+    font-size:20px;
+    color:var(--purple);
+    margin:28px 0 12px;
+    font-weight:bold;
+  }
+  .subhead{
+    font-size:15px;
+    color:var(--pink);
+    font-weight:bold;
+    letter-spacing:0.3px;
+    margin-bottom:18px;
+  }
+  p{margin:0 0 14px;font-size:15px;}
+  .lede{font-size:16px;color:var(--body);}
+
+  /* Intro scope cards */
+  .scope-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+    margin:22px 0 28px;
+  }
+  .scope-card{
+    border:2px solid var(--black25);
+    border-radius:10px;
+    padding:18px 20px;
+    cursor:pointer;
+    position:relative;
+    transition:border-color 0.15s, background 0.15s;
+  }
+  .scope-card:hover{border-color:var(--purple-grey);}
+  .scope-card.selected{
+    border-color:var(--pink);
+    background:var(--light-bg);
+  }
+  .scope-card .badge-recommended{
+    position:absolute;
+    top:-11px;
+    right:16px;
+    background:var(--pink);
+    color:var(--white);
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    padding:3px 10px;
+    border-radius:20px;
+  }
+  .scope-card h3{
+    margin:0 0 4px;
+    font-size:16px;
+    color:var(--purple);
+  }
+  .scope-card .meta{
+    font-size:12px;
+    color:var(--black50);
+    margin-bottom:6px;
+  }
+  .scope-card p{
+    margin:0;
+    font-size:14px;
+  }
+
+  .field-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin-bottom:22px;
+  }
+  @media(max-width:520px){.field-row{grid-template-columns:1fr;}}
+  label.field-label{
+    display:block;
+    font-size:12px;
+    color:var(--black50);
+    margin-bottom:5px;
+    text-transform:uppercase;
+    letter-spacing:0.4px;
+  }
+  input[type="text"]{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--black25);
+    border-radius:6px;
+    font-size:14px;
+    font-family:Arial, Helvetica, sans-serif;
+    color:var(--body);
+  }
+  input[type="text"]:focus{outline:2px solid var(--pink);border-color:var(--pink);}
+
+  details{
+    margin-top:22px;
+    border-top:1px solid var(--black25);
+    padding-top:16px;
+  }
+  summary{
+    cursor:pointer;
+    font-weight:bold;
+    color:var(--purple);
+    font-size:14px;
+  }
+  .dim-list{margin-top:14px;}
+  .dim-list-item{
+    display:flex;
+    gap:10px;
+    padding:8px 0;
+    border-bottom:1px solid var(--light-bg);
+    font-size:13px;
+  }
+  .dim-list-item .dname{font-weight:bold;color:var(--purple);min-width:190px;}
+  .dim-list-item .dblurb{color:var(--black50);}
+
+  .btn{
+    display:inline-block;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:15px;
+    font-weight:bold;
+    padding:13px 28px;
+    border-radius:30px;
+    border:2px solid var(--purple);
+    background:var(--purple);
+    color:var(--white);
+    cursor:pointer;
+    transition:background 0.15s, border-color 0.15s, opacity 0.15s;
+  }
+  .btn:hover{background:var(--tint90);border-color:var(--tint90);}
+  .btn:disabled{opacity:0.4;cursor:not-allowed;}
+  .btn-secondary{
+    background:var(--white);
+    color:var(--purple);
+  }
+  .btn-secondary:hover{background:var(--light-bg);}
+  .btn-row{display:flex;gap:12px;justify-content:space-between;margin-top:30px;align-items:center;flex-wrap:wrap;}
+  .btn-row .right-group{display:flex;gap:12px;}
+
+  /* Quiz screen */
+  .q-counter{font-size:12px;color:var(--black50);margin-bottom:4px;letter-spacing:0.3px;}
+  .q-dim{font-size:13px;color:var(--pink);font-weight:bold;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px;}
+  .q-blurb{font-size:13px;color:var(--black50);margin-bottom:20px;}
+  .q-text{font-size:19px;color:var(--purple);font-weight:bold;margin-bottom:22px;line-height:1.4;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .option{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    border:2px solid var(--black25);
+    border-radius:10px;
+    padding:14px 16px;
+    cursor:pointer;
+    position:relative;
+    transition:border-color 0.15s, background 0.15s;
+  }
+  .option:hover{border-color:var(--purple-grey);}
+  .option input[type="radio"]{
+    position:absolute;
+    opacity:0;
+    width:0;height:0;
+  }
+  .option.selected{border-color:var(--pink);background:var(--light-bg);}
+  .opt-badge{
+    flex:0 0 26px;
+    width:26px;height:26px;
+    border-radius:50%;
+    border:2px solid var(--purple-grey);
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-weight:bold;color:var(--purple-grey);
+    background:var(--white);
+  }
+  .option.selected .opt-badge{
+    border-color:var(--pink);
+    background:var(--pink);
+    color:var(--white);
+  }
+  .opt-text{font-size:15px;padding-top:2px;}
+
+  /* Results */
+  .level-badge{
+    display:inline-block;
+    padding:8px 22px;
+    border-radius:30px;
+    color:var(--white);
+    font-weight:bold;
+    font-size:14px;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  .score-big{font-size:44px;font-weight:bold;color:var(--purple);margin:2px 0 4px;}
+  .score-big span{font-size:20px;color:var(--black50);font-weight:normal;}
+  .tier-result{margin-bottom:36px;padding-bottom:30px;border-bottom:1px solid var(--black25);}
+  .tier-result:last-of-type{border-bottom:none;}
+  .tier-heading{font-size:13px;color:var(--black50);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;font-weight:bold;}
+
+  .radar-wrap{display:flex;justify-content:center;margin:18px 0;}
+  .bars{margin-top:20px;}
+  .bar-row{margin-bottom:14px;}
+  .bar-label-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;}
+  .bar-label-row .dn{font-weight:bold;color:var(--body);}
+  .bar-label-row .dv{font-weight:bold;color:var(--purple);}
+  .bar-track{height:8px;background:var(--light-bg);border-radius:6px;overflow:hidden;}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--purple),var(--pink));border-radius:6px;}
+
+  .callout{
+    background:var(--light-bg);
+    border-left:4px solid var(--pink);
+    padding:16px 20px;
+    border-radius:6px;
+    margin:24px 0;
+    font-size:14.5px;
+  }
+  .priority-item{margin-bottom:16px;}
+  .priority-item .pt-name{font-weight:bold;color:var(--purple);font-size:14.5px;}
+  .priority-item .pt-score{color:var(--pink);font-weight:bold;}
+  .priority-item p{margin:4px 0 0;font-size:14.5px;}
+
+  footer{
+    text-align:center;
+    color:var(--black50);
+    font-size:12px;
+    padding:24px 20px 40px;
+  }
+
+  @media print{
+    .topbar .tool-label, .progress-wrap, .btn-row, footer, #screen-intro, #screen-quiz{display:none !important;}
+    body{background:var(--white);}
+    .card{box-shadow:none;border:none;padding:0;}
+  }
+  @media(max-width:600px){
+    .card{padding:26px 20px;}
+    h1{font-size:24px;}
+    .q-text{font-size:17px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark-group">
+    <div class="wordmark">TENET</div>
+    <div class="tagline">Advisory &amp; Investments</div>
+  </div>
+  <div class="tool-label">The Compounder Index</div>
+</div>
+<div class="progress-wrap hidden" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
+
+<main class="container">
+
+  <!-- INTRO -->
+  <section class="card" id="screen-intro">
+    <h1>The Compounder Index</h1>
+    <div class="subhead">Tenet's AI Readiness Diagnostic</div>
+    <p class="lede">Most organisations have bought AI tools. Few have built the strategy, governance, and capability to get value from them. This diagnostic measures both: how ready your organisation is, and how well your people actually use what you have given them.</p>
+    <p>Answers are scored against behaviour, not opinion. Each question describes four real states of practice, from absent to advanced, and you pick the one closest to your reality. There is no reward for picking the impressive-sounding answer, only for picking the true one.</p>
+
+    <h2>Choose your scope</h2>
+    <div class="scope-grid" id="scopeGrid">
+      <div class="scope-card" data-scope="org">
+        <h3>Assess your organisation</h3>
+        <div class="meta">24 questions · about 8 minutes</div>
+        <p>For a leader or sponsor who can speak to strategy, governance, data, culture, workflow, and investment.</p>
+      </div>
+      <div class="scope-card" data-scope="individual">
+        <h3>Assess your own AI use</h3>
+        <div class="meta">20 questions · about 6 minutes</div>
+        <p>For anyone assessing their own knowledge, usage, skill, attitude, and change in behaviour.</p>
+      </div>
+      <div class="scope-card" data-scope="both">
+        <span class="badge-recommended">Recommended</span>
+        <h3>Do both</h3>
+        <div class="meta">44 questions · about 14 minutes</div>
+        <p>The full picture: organisational readiness and individual proficiency, with a combined score showing whether they are moving together.</p>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div>
+        <label class="field-label" for="fldName">Name (optional)</label>
+        <input type="text" id="fldName" placeholder="Not stored or sent anywhere">
+      </div>
+      <div>
+        <label class="field-label" for="fldCompany">Organisation (optional)</label>
+        <input type="text" id="fldCompany" placeholder="Shown on your results only">
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <div></div>
+      <div class="right-group">
+        <button class="btn" id="startBtn" disabled>Start the diagnostic</button>
+      </div>
+    </div>
+
+    <details>
+      <summary>About the methodology</summary>
+      <p style="margin-top:12px;">Every dimension is scored from four questions, each with four answers describing increasing maturity. Scores are normalised to a scale of 0 to 100 and mapped to four levels: Bystander, Adopter, Integrator, Compounder. Where both tiers are completed, the combined score weights organisational readiness at 60 per cent and individual proficiency at 40 per cent, because individual skill can only compound where the organisation has built the foundation for it to land.</p>
+      <div class="dim-list" id="methodologyDims"></div>
+    </details>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="card hidden" id="screen-quiz">
+    <div class="q-counter" id="qCounter">Question 1 of 24</div>
+    <div class="q-dim" id="qDim">Strategy &amp; Ambition</div>
+    <div class="q-blurb" id="qBlurb"></div>
+    <div class="q-text" id="qText">Question text goes here</div>
+    <div class="options" id="qOptions"></div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" id="backBtn">Back</button>
+      <div class="right-group">
+        <button class="btn" id="nextBtn" disabled>Next</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="card hidden" id="screen-results">
+    <h1 id="resultsHeading">Your results</h1>
+    <p id="resultsSubheading" class="lede"></p>
+    <div id="resultsBody"></div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" id="restartBtn">Start again</button>
+      <div class="right-group">
+        <button class="btn" id="printBtn">Print results</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>The Compounder Index is a Tenet Advisory &amp; Investments diagnostic. Results are indicative and intended to guide a conversation, not to replace one.</footer>
+
+<script>
+(function(){
+
+  // ---------- DATA ----------
+
+  var ORG_DIMS = [
+    {
+      id:'strategy', name:'Strategy & Ambition',
+      blurb:'Whether AI priorities are tied to real business outcomes.',
+      questions:[
+        {text:"How would you describe your organisation's AI strategy today?", options:[
+          "We do not have one. AI use is happening informally, if at all.",
+          "We have general enthusiasm and some pilot projects, but no documented strategy or prioritised use cases.",
+          "We have a documented strategy with prioritised use cases, but it sits separately from the core business strategy.",
+          "AI priorities are integrated into our core business strategy and reviewed alongside our other strategic bets."
+        ]},
+        {text:"Who decided what your organisation is doing with AI?", options:[
+          "Individual teams or employees are deciding for themselves, without central coordination.",
+          "A small group, usually IT or a single enthusiast, is driving decisions without broad buy-in.",
+          "Leadership has set direction, but business units define their own roadmaps within it.",
+          "Leadership and business units co-created the plan, with clear sequencing tied to the biggest value opportunities."
+        ]},
+        {text:"How well can your leadership team describe where AI will change your competitive position in the next two years?", options:[
+          "We have not discussed this.",
+          "We have talked about it informally but have not tested any assumptions.",
+          "We have identified likely areas of impact but have not stress-tested them against competitors or customers.",
+          "We have a clear, tested view of where AI changes our cost base, our offer, or our customer experience, and we are acting on it."
+        ]},
+        {text:"How is AI investment funded and reviewed?", options:[
+          "There is no dedicated budget. Spend happens ad hoc, often on individual licences.",
+          "There is a budget, but it was set once and is not reviewed against results.",
+          "There is a budget with periodic review, but the criteria for reinvestment are unclear.",
+          "Investment is funded like a portfolio. We track value delivered per initiative and reallocate accordingly."
+        ]}
+      ]
+    },
+    {
+      id:'governance', name:'Leadership & Governance',
+      blurb:'Who owns AI decisions, risk, and approval.',
+      questions:[
+        {text:"Who owns AI outcomes in your organisation?", options:[
+          "No one. It is everyone's job and therefore no one's.",
+          "A working group or committee exists but has no real authority or budget.",
+          "A named leader, such as a Head of AI, owns it part time, alongside other responsibilities.",
+          "A named leader owns it full time, with a mandate and budget that senior leadership actively backs."
+        ]},
+        {text:"What happens when someone wants to try a new AI tool or build an agent?", options:[
+          "They just do it, on whatever tool they can access.",
+          "There is an approved tool list, but no clear process for anything beyond it.",
+          "There is a lightweight approval process, though it is not consistently followed.",
+          "There is a fast, well-understood pathway to try, evaluate, and either scale or retire ideas."
+        ]},
+        {text:"How mature is your governance of AI risk, covering data, bias, IP, and model errors?", options:[
+          "We have not defined our position on this.",
+          "We have informal guidance, mostly 'be careful,' with no enforcement.",
+          "We have a written policy, but training and enforcement are inconsistent.",
+          "We have a clear, understood policy with training, monitoring, and a way to escalate issues."
+        ]},
+        {text:"How does your board or executive team engage with AI?", options:[
+          "It is not a standing item anywhere.",
+          "It comes up occasionally, usually in reaction to something.",
+          "It is a regular agenda item, but mostly for updates rather than decisions.",
+          "It is a regular agenda item with real decisions made: what to fund, what to stop, what to scale."
+        ]}
+      ]
+    },
+    {
+      id:'data', name:'Data & Technology Foundation',
+      blurb:'Whether your data and systems can actually support AI use.',
+      questions:[
+        {text:"How accessible is your organisation's data to the people who need it for AI use cases?", options:[
+          "Data is fragmented, siloed, or hard to trust.",
+          "Some data is accessible, but pulling it together takes manual effort every time.",
+          "Core data sets are reasonably accessible, though quality and structure vary.",
+          "Data is clean, connected, and available in the formats AI tools need, with clear ownership."
+        ]},
+        {text:"How would you describe your current AI tool stack?", options:[
+          "A mix of personal subscriptions and free tools, with no organisational visibility.",
+          "A small number of sanctioned tools, but access is inconsistent across the business.",
+          "A defined stack of sanctioned tools with broad access, though integration between them is limited.",
+          "A defined, integrated stack that connects to our core systems and data."
+        ]},
+        {text:"Can your systems support AI agents that take action, rather than only answer questions?", options:[
+          "We have not considered this.",
+          "We have looked into it but concluded our systems are not ready.",
+          "Some systems could support this with moderate work.",
+          "Our architecture already supports, or is being actively built to support, agentic workflows."
+        ]},
+        {text:"How do you handle security and privacy for AI tools?", options:[
+          "We have not formally assessed this.",
+          "We rely on default settings from vendors, without independent review.",
+          "We have reviewed our main tools, but new tools are not consistently assessed before use.",
+          "Every AI tool goes through a consistent security and privacy review before deployment."
+        ]}
+      ]
+    },
+    {
+      id:'culture', name:'Capability & Culture',
+      blurb:'Whether training and manager behaviour build real capability.',
+      questions:[
+        {text:"What training has your workforce received on AI?", options:[
+          "None.",
+          "A one-off session, mostly about what not to do.",
+          "Ongoing training, but focused on safety and basic tool use rather than building or workflow design.",
+          "Ongoing, role-specific training that covers safe use and how to build workflows or agents."
+        ]},
+        {text:"Do managers expect and support AI use in their teams?", options:[
+          "It has never come up.",
+          "Some managers encourage it informally, with no consistency.",
+          "Most managers encourage it, but do not hold their teams accountable for using it well.",
+          "Managers expect it, model it themselves, and it shows up in how people are evaluated."
+        ]},
+        {text:"How does your organisation feel about AI, from what you can tell?", options:[
+          "Anxious or resistant, more than curious.",
+          "Curious, but mostly among a small group of enthusiasts.",
+          "Broadly positive, though confidence is uneven across levels and teams.",
+          "Confident and engaged across the business, from the front line to the executive team."
+        ]},
+        {text:"What happens to a good AI use case that a single employee discovers?", options:[
+          "Nothing. It stays with them.",
+          "It might get mentioned in a team meeting, but rarely spreads further.",
+          "There is a way to share it, but no one owns making sure it actually spreads.",
+          "There is a clear pathway to capture it, test it, and roll it out to everyone who could benefit."
+        ]}
+      ]
+    },
+    {
+      id:'workflow', name:'Workflow & Operating Model',
+      blurb:'Whether AI is embedded in how work actually gets done.',
+      questions:[
+        {text:"Where does AI sit in your day-to-day operations?", options:[
+          "Outside the core workflow, used occasionally for individual tasks.",
+          "Used inside some workflows, but manually, one person at a time.",
+          "Embedded in several core workflows, with defined steps and owners.",
+          "Embedded across most core workflows, with agents handling parts of the process end to end."
+        ]},
+        {text:"How would your business run differently tomorrow if every AI licence was cancelled tonight?", options:[
+          "No difference. It is not embedded anywhere critical.",
+          "A few individuals would be inconvenienced.",
+          "Some teams would need to change how they work, but the business would function.",
+          "Core processes would break. AI is now load-bearing infrastructure, not a nice-to-have."
+        ]},
+        {text:"How are AI agents, meaning systems that act on your behalf rather than only respond, used today?", options:[
+          "Not at all.",
+          "We have tested one, in a low-stakes area.",
+          "We have one or two in production, with human oversight at key steps.",
+          "We have multiple agents in production, monitoring data and triggering actions, with clear escalation paths."
+        ]},
+        {text:"How do new AI-enabled ways of working get built into standard operating procedures?", options:[
+          "They do not. Individuals just use AI on top of the old process.",
+          "Occasionally, when someone takes the initiative to document it.",
+          "There is a process for updating procedures, but it lags behind actual practice.",
+          "Procedures are actively redesigned around what AI now makes possible, not just patched."
+        ]}
+      ]
+    },
+    {
+      id:'value', name:'Value & Measurement',
+      blurb:'Whether you can measure and reinvest based on results.',
+      questions:[
+        {text:"How do you know if your AI investment is working?", options:[
+          "We do not track this.",
+          "We track usage, such as licences and logins, but not outcomes.",
+          "We track outcomes for some initiatives, but not consistently or against a baseline.",
+          "We track outcomes against a baseline for every material initiative, and can point to the numbers."
+        ]},
+        {text:"What is your best estimate of value delivered by AI so far?", options:[
+          "We could not put a number on it.",
+          "We have a rough sense but no confidence in it.",
+          "We have credible estimates for our top one or two use cases.",
+          "We have a credible, aggregated view of value delivered across initiatives, reviewed regularly."
+        ]},
+        {text:"How do results from AI initiatives change what you fund next?", options:[
+          "They do not. Funding decisions are made independently of past results.",
+          "Occasionally, when something clearly fails or succeeds.",
+          "Most of the time, though the link is informal.",
+          "Always. We reinvest based on evidence, in a disciplined way."
+        ]},
+        {text:"If a competitor asked how AI is changing your margins, could you answer with numbers?", options:[
+          "No.",
+          "We could gesture at it, but not with real numbers.",
+          "We could answer for our biggest initiative.",
+          "Yes, clearly and across multiple areas."
+        ]}
+      ]
+    }
+  ];
+
+  var IND_DIMS = [
+    {
+      id:'knowledge', name:'Knowledge',
+      blurb:'Understanding what AI can and cannot do, and how to use it safely.',
+      questions:[
+        {text:"How would you explain what an AI agent is, in your own words?", options:[
+          "I am not sure what makes it different from a chatbot.",
+          "I know it is somehow more advanced, but I could not explain how.",
+          "I could give a broadly correct explanation, with some gaps.",
+          "I could explain clearly what makes an agent different from a chatbot, and give an example."
+        ]},
+        {text:"How well do you understand the limitations of the AI tools you use, such as errors, bias, or made-up answers?", options:[
+          "I have not thought about this.",
+          "I know AI can be wrong, but I do not have a method for checking.",
+          "I generally check important outputs, though not consistently.",
+          "I know where these tools are unreliable and I check accordingly, every time it matters."
+        ]},
+        {text:"How confident are you that you are using AI tools safely with sensitive data?", options:[
+          "I have not thought about what is safe to put into an AI tool.",
+          "I am cautious out of instinct, but do not know the actual rules.",
+          "I know the rules for the tools I use most, though I am unsure about edge cases.",
+          "I know exactly what is and is not safe to share, and why."
+        ]},
+        {text:"Could you name three things AI is currently bad at, relevant to your job?", options:[
+          "No.",
+          "Maybe one.",
+          "Two, with some confidence.",
+          "Yes, clearly, and I plan my use of AI around them."
+        ]}
+      ]
+    },
+    {
+      id:'usage', name:'Usage Depth',
+      blurb:'How often, and how deeply, you actually use AI.',
+      questions:[
+        {text:"How often do you use AI tools in your work?", options:[
+          "Rarely or never.",
+          "A few times a month, for occasional tasks.",
+          "Most days, for a range of tasks.",
+          "Every day, woven into how I actually work."
+        ]},
+        {text:"What is the most advanced thing you currently do with AI?", options:[
+          "Simple lookups, similar to a search engine.",
+          "Drafting or revising individual pieces of work.",
+          "Running a multi-step task through a defined process I have set up.",
+          "Running an automated workflow or agent that handles a task with minimal input from me."
+        ]},
+        {text:"How many distinct, repeatable use cases do you have, not counting one-off experiments?", options:[
+          "None.",
+          "One.",
+          "Two or three.",
+          "Four or more, across different parts of my role."
+        ]},
+        {text:"Have you ever set an AI tool up to monitor something and flag or act on it without you asking each time?", options:[
+          "No, and I would not know how.",
+          "No, but I understand the idea.",
+          "I have tried something like this once.",
+          "Yes, I have at least one of these running now."
+        ]}
+      ]
+    },
+    {
+      id:'skill', name:'Applied Skill',
+      blurb:'Your ability to prompt well and design multi-step workflows.',
+      questions:[
+        {text:"When you ask an AI tool for something and the first answer is not right, what do you do?", options:[
+          "I usually give up or do it myself.",
+          "I try rephrasing, without much of a method.",
+          "I refine the prompt with more context or constraints and usually get there.",
+          "I know how to structure a prompt so I rarely need to redo it."
+        ]},
+        {text:"Have you written instructions for a custom AI assistant, GPT, or agent, rather than just a one-off prompt?", options:[
+          "No.",
+          "I have tried, but was not happy with the result.",
+          "Yes, and it works reasonably well.",
+          "Yes, and other people use what I built."
+        ]},
+        {text:"How do you approach a new, complex task with AI?", options:[
+          "I ask for the whole thing in one go and hope for the best.",
+          "I do the thinking myself and only use AI for small pieces.",
+          "I break the task into steps and use AI for each one.",
+          "I think in workflows: research, draft, refine, test, and I design the AI's role at each step."
+        ]},
+        {text:"If you needed to identify the highest-value use for AI in your own role, could you do it?", options:[
+          "No idea where to start.",
+          "I have a vague sense but could not defend it.",
+          "I could name one strong candidate and roughly why.",
+          "I could rank my top three opportunities by effort and impact."
+        ]}
+      ]
+    },
+    {
+      id:'attitude', name:'Attitude & Confidence',
+      blurb:'How you feel about AI, and how supported you feel.',
+      questions:[
+        {text:"How do you feel about AI's impact on your role?", options:[
+          "Anxious or unsure.",
+          "Neutral, taking a wait-and-see approach.",
+          "Positive, though I have some reservations.",
+          "Genuinely excited about what it opens up."
+        ]},
+        {text:"Do you feel supported by your manager or organisation to build AI skills?", options:[
+          "No support that I am aware of.",
+          "Support exists on paper, but I have not felt it in practice.",
+          "I have had some support: training, time, or encouragement.",
+          "I have real support: dedicated time, clear expectations, and someone who checks in on my progress."
+        ]},
+        {text:"Would you say your job has actually changed because of AI?", options:[
+          "Not at all.",
+          "A little, at the margins.",
+          "I have dropped or sped up several tasks because of it.",
+          "I have taken on new kinds of work I did not do before, because AI freed up the capacity."
+        ]},
+        {text:"If asked to teach a colleague one thing about using AI well, could you?", options:[
+          "I would not feel qualified.",
+          "I could show them one useful trick.",
+          "I could run a short, useful session.",
+          "I already do this, informally or formally."
+        ]}
+      ]
+    },
+    {
+      id:'behaviour', name:'Behaviour Change',
+      blurb:'Whether AI has actually changed the work you do.',
+      questions:[
+        {text:"Think about the last month. How much of your routine work has genuinely moved to AI, rather than just being touched by it?", options:[
+          "None of it.",
+          "A small amount, on the easiest tasks.",
+          "A meaningful share of my routine work.",
+          "Most of my routine work now starts with AI, not with me."
+        ]},
+        {text:"Have you stopped doing any task entirely because AI now handles it?", options:[
+          "No.",
+          "Not entirely, but I do it much faster.",
+          "Yes, one task.",
+          "Yes, more than one."
+        ]},
+        {text:"Has your role's scope changed as a result of using AI well?", options:[
+          "No.",
+          "Slightly. I have more time, but I use it the same way as before.",
+          "Yes. I have taken on a new type of work with the time it freed up.",
+          "Yes, substantially. Colleagues now come to me for this kind of work."
+        ]},
+        {text:"If AI access was removed tomorrow, what would happen to your output?", options:[
+          "No real change.",
+          "I would be slower, but otherwise fine.",
+          "I would need to drop or significantly cut back on some of what I do.",
+          "I could not deliver against my current role the way it is now defined."
+        ]}
+      ]
+    }
+  ];
+
+  var TIERS = {
+    org:{ label:"Organisational Readiness", short:"Your organisation", dims:ORG_DIMS },
+    individual:{ label:"Individual Proficiency", short:"You", dims:IND_DIMS }
+  };
+
+  var LEVELS = [
+    {id:'bystander', max:39, name:'Bystander', color:'#998CA0'},
+    {id:'adopter', max:59, name:'Adopter', color:'#735478'},
+    {id:'integrator', max:79, name:'Integrator', color:'#4F1352'},
+    {id:'compounder', max:100, name:'Compounder', color:'#D10079'}
+  ];
+
+  var NARRATIVES = {
+    org:{
+      bystander:"AI is present but not doing anything for you yet. Most organisations at this stage have bought tools without the strategy, governance, or capability to get value from them. Pick one real use case, build the capability around it, and prove the value before you scale anything.",
+      adopter:"There is real activity, but it is scattered. Individuals and pockets of the business are getting value, while the organisation as a whole is not compounding it. This is the most common place to get stuck, because early wins can feel like progress without changing the trajectory. The fix is coordination: one owner, one prioritised roadmap, and a way to spread what is already working.",
+      integrator:"AI is embedded in how real work gets done, with governance and measurement to match. The gap now is depth, not breadth: turning defined workflows into genuinely agentic ones, and closing the training gap between what people know and what the best use cases require. This is a strong position. It is also where competitors start to catch up if you stand still.",
+      compounder:"AI is structural to how you compete, not a program running alongside the business. Value is measured, reinvested, and growing. The task now is to protect the advantage: keep governance ahead of capability, keep leadership honest about where the gaps still are, and keep looking for the next workflow to redesign before someone else does."
+    },
+    individual:{
+      bystander:"AI is not really part of how you work yet. That is a reasonable starting point, but it means you are leaving time and quality on the table that colleagues using it well are already capturing. Pick one recurring task and commit to doing it with AI every time, for two weeks.",
+      adopter:"You are getting value from AI, but on an ad hoc basis: useful in the moment, not yet a repeatable part of how you work. The next step is turning your best one-off wins into standing habits you do not have to think about.",
+      integrator:"AI is a genuine part of how you work, across more than one task. The gap between you and the small group of true experts is mostly about workflow thinking: designing multi-step processes rather than handling tasks one at a time.",
+      compounder:"You are in the small group that has changed how they work because of AI, rather than only sped up the old way of working. The task now is to teach it. The evidence is consistent that organisations only get real returns once this kind of practice spreads beyond a handful of people."
+    }
+  };
+
+  var COMPARISON = {
+    orgAhead:"Your organisation has built more capability than the people in it are using. The bottleneck now is behaviour and adoption, not infrastructure.",
+    indAhead:"Your people are ahead of your organisation. They have found value on their own, without support or governance, which will not survive a change of personnel unless the organisation catches up.",
+    balanced:"Your organisation and your people are moving at a similar pace. That balance is rare, and worth protecting as you scale."
+  };
+
+  var RECOMMENDATIONS = {
+    strategy:"Name the two or three places AI could change your cost base or your offer, and test those assumptions against real data before spending more on tools.",
+    governance:"Appoint one person to own AI outcomes, even part time, before you fund anything else. Diffuse ownership is a common reason AI investment goes nowhere.",
+    data:"Fix data access for your two highest-value use cases first. No tool stack compensates for data you cannot trust or reach.",
+    culture:"Move training from what not to do toward how to build. Compliance training reduces liability. It does not build proficiency.",
+    workflow:"Pick one core workflow and redesign it around what AI now makes possible, rather than adding AI on top of the existing process.",
+    value:"Put a number on your best use case this quarter. Without a credible number, it is hard to make the case for what comes next.",
+    knowledge:"Spend an hour understanding what these tools are actually good and bad at. Most wasted effort comes from misjudging that line, in either direction.",
+    usage:"Pick one recurring task this week and commit to doing it with AI every time, not just when you remember to.",
+    skill:"Practise breaking a task into steps before you hand it to AI. Most disappointing outputs come from asking for too much in one go.",
+    attitude:"Ask your manager directly what support exists for building AI skill. If the answer is vague, that is useful information too.",
+    behaviour:"Look for one task you could stop doing entirely, not just do faster. That is where the real value shows up."
+  };
+
+  // ---------- STATE ----------
+  var state = {
+    scope:null,
+    name:'',
+    company:'',
+    order:[], // list of {tierKey, dimId, dimName, dimBlurb, qIndex, question}
+    current:0,
+    answers:{} // key "tierKey|dimId|qIndex" -> score
+  };
+
+  // ---------- DOM refs ----------
+  var screenIntro = document.getElementById('screen-intro');
+  var screenQuiz = document.getElementById('screen-quiz');
+  var screenResults = document.getElementById('screen-results');
+  var progressWrap = document.getElementById('progressWrap');
+  var progressBar = document.getElementById('progressBar');
+  var scopeGrid = document.getElementById('scopeGrid');
+  var startBtn = document.getElementById('startBtn');
+  var fldName = document.getElementById('fldName');
+  var fldCompany = document.getElementById('fldCompany');
+
+  // Populate methodology list
+  (function(){
+    var wrap = document.getElementById('methodologyDims');
+    var html = '';
+    ORG_DIMS.concat(IND_DIMS).forEach(function(d){
+      html += '<div class="dim-list-item"><div class="dname">'+d.name+'</div><div class="dblurb">'+d.blurb+'</div></div>';
+    });
+    wrap.innerHTML = html;
+  })();
+
+  // Scope selection
+  scopeGrid.addEventListener('click', function(e){
+    var card = e.target.closest('.scope-card');
+    if(!card) return;
+    Array.prototype.forEach.call(scopeGrid.querySelectorAll('.scope-card'), function(c){ c.classList.remove('selected'); });
+    card.classList.add('selected');
+    state.scope = card.getAttribute('data-scope');
+    startBtn.disabled = false;
+  });
+
+  startBtn.addEventListener('click', function(){
+    state.name = fldName.value.trim();
+    state.company = fldCompany.value.trim();
+    buildOrder();
+    state.current = 0;
+    state.answers = {};
+    screenIntro.classList.add('hidden');
+    screenQuiz.classList.remove('hidden');
+    progressWrap.classList.remove('hidden');
+    renderQuestion();
+  });
+
+  function buildOrder(){
+    state.order = [];
+    var tierKeys = state.scope === 'both' ? ['org','individual'] : [state.scope];
+    tierKeys.forEach(function(tierKey){
+      TIERS[tierKey].dims.forEach(function(dim){
+        dim.questions.forEach(function(q, qi){
+          state.order.push({tierKey:tierKey, dimId:dim.id, dimName:dim.name, dimBlurb:dim.blurb, qIndex:qi, question:q});
+        });
+      });
+    });
+  }
+
+  // Quiz rendering
+  var qCounter = document.getElementById('qCounter');
+  var qDim = document.getElementById('qDim');
+  var qBlurb = document.getElementById('qBlurb');
+  var qText = document.getElementById('qText');
+  var qOptions = document.getElementById('qOptions');
+  var backBtn = document.getElementById('backBtn');
+  var nextBtn = document.getElementById('nextBtn');
+
+  function answerKey(item){ return item.tierKey+'|'+item.dimId+'|'+item.qIndex; }
+
+  function renderQuestion(){
+    var item = state.order[state.current];
+    var total = state.order.length;
+    qCounter.textContent = 'Question ' + (state.current+1) + ' of ' + total;
+    var tierPrefix = state.scope === 'both' ? (TIERS[item.tierKey].short + ' · ') : '';
+    qDim.textContent = tierPrefix + item.dimName;
+    qBlurb.textContent = item.dimBlurb;
+    qText.textContent = item.question.text;
+
+    var key = answerKey(item);
+    var existing = state.answers[key];
+
+    var html = '';
+    item.question.options.forEach(function(optText, i){
+      var letter = String.fromCharCode(65+i);
+      var selectedClass = (existing === (i+1)) ? ' selected' : '';
+      html += '<label class="option'+selectedClass+'" data-score="'+(i+1)+'">'+
+              '<input type="radio" name="qopt">'+
+              '<span class="opt-badge">'+letter+'</span>'+
+              '<span class="opt-text">'+optText+'</span>'+
+              '</label>';
+    });
+    qOptions.innerHTML = html;
+
+    nextBtn.disabled = (existing === undefined);
+    backBtn.disabled = (state.current === 0);
+    nextBtn.textContent = (state.current === total-1) ? 'See results' : 'Next';
+
+    updateProgress();
+  }
+
+  qOptions.addEventListener('click', function(e){
+    var opt = e.target.closest('.option');
+    if(!opt) return;
+    var item = state.order[state.current];
+    var key = answerKey(item);
+    state.answers[key] = parseInt(opt.getAttribute('data-score'), 10);
+    Array.prototype.forEach.call(qOptions.querySelectorAll('.option'), function(o){ o.classList.remove('selected'); });
+    opt.classList.add('selected');
+    nextBtn.disabled = false;
+  });
+
+  backBtn.addEventListener('click', function(){
+    if(state.current > 0){
+      state.current--;
+      renderQuestion();
+    }
+  });
+
+  nextBtn.addEventListener('click', function(){
+    if(state.current < state.order.length - 1){
+      state.current++;
+      renderQuestion();
+    } else {
+      finishQuiz();
+    }
+  });
+
+  function updateProgress(){
+    var pct = Math.round(((state.current) / state.order.length) * 100);
+    progressBar.style.width = pct + '%';
+  }
+
+  // ---------- SCORING ----------
+  function computeDimScore(tierKey, dim){
+    var sum = 0;
+    dim.questions.forEach(function(q, qi){
+      var key = tierKey+'|'+dim.id+'|'+qi;
+      sum += (state.answers[key] || 1);
+    });
+    // sum range 4-16 -> normalise 0-100
+    return Math.round(((sum - 4) / 12) * 100);
+  }
+
+  function getLevel(score){
+    for(var i=0;i<LEVELS.length;i++){
+      if(score <= LEVELS[i].max) return LEVELS[i];
+    }
+    return LEVELS[LEVELS.length-1];
+  }
+
+  function finishQuiz(){
+    progressBar.style.width = '100%';
+    var results = {};
+    var allDimScores = []; // {tierKey, dimId, dimName, score}
+
+    ['org','individual'].forEach(function(tierKey){
+      if(state.scope !== 'both' && state.scope !== tierKey) return;
+      var dimScores = TIERS[tierKey].dims.map(function(dim){
+        var s = computeDimScore(tierKey, dim);
+        allDimScores.push({tierKey:tierKey, dimId:dim.id, dimName:dim.name, score:s});
+        return {id:dim.id, name:dim.name, score:s};
+      });
+      var tierScore = Math.round(dimScores.reduce(function(a,b){return a+b.score;},0) / dimScores.length);
+      results[tierKey] = {dimScores:dimScores, tierScore:tierScore};
+    });
+
+    var combinedScore = null;
+    if(state.scope === 'both'){
+      combinedScore = Math.round(0.6*results.org.tierScore + 0.4*results.individual.tierScore);
+    }
+
+    renderResults(results, combinedScore, allDimScores);
+
+    setTimeout(function(){
+      screenQuiz.classList.add('hidden');
+      screenResults.classList.remove('hidden');
+      progressWrap.classList.add('hidden');
+      window.scrollTo(0,0);
+    }, 150);
+  }
+
+  function radarSVG(dims, scores, color, size){
+    size = size || 280;
+    var n = dims.length;
+    var cx = size/2, cy = size/2;
+    var maxR = size/2 - 46;
+    var points = [];
+    var gridPolys = [0.25,0.5,0.75,1].map(function(){ return []; });
+    var labels = '';
+    for(var i=0;i<n;i++){
+      var angle = (-90 + i*(360/n)) * Math.PI/180;
+      var r = maxR * (scores[i]/100);
+      var x = cx + r*Math.cos(angle);
+      var y = cy + r*Math.sin(angle);
+      points.push(x+','+y);
+
+      [0.25,0.5,0.75,1].forEach(function(frac, gi){
+        var gr = maxR*frac;
+        var gx = cx + gr*Math.cos(angle);
+        var gy = cy + gr*Math.sin(angle);
+        gridPolys[gi].push(gx+','+gy);
+      });
+
+      var lx = cx + (maxR+26)*Math.cos(angle);
+      var ly = cy + (maxR+26)*Math.sin(angle);
+      var anchor = 'middle';
+      if(Math.cos(angle) > 0.3) anchor = 'start';
+      else if(Math.cos(angle) < -0.3) anchor = 'end';
+      var words = dims[i].split(' ');
+      var lineY = ly;
+      var tspans = '';
+      // wrap into max 2 lines
+      var mid = Math.ceil(words.length/2);
+      var line1 = words.slice(0, mid).join(' ');
+      var line2 = words.slice(mid).join(' ');
+      tspans += '<tspan x="'+lx+'" dy="0">'+line1+'</tspan>';
+      if(line2) tspans += '<tspan x="'+lx+'" dy="12">'+line2+'</tspan>';
+      labels += '<text x="'+lx+'" y="'+lineY+'" text-anchor="'+anchor+'" font-size="10.5" fill="#404040" font-family="Arial, Helvetica, sans-serif">'+tspans+'</text>';
+    }
+
+    var gridSVG = '';
+    gridPolys.forEach(function(poly){
+      gridSVG += '<polygon points="'+poly.join(' ')+'" fill="none" stroke="#BFBFBF" stroke-width="1"/>';
+    });
+    var axisSVG = '';
+    for(var j=0;j<n;j++){
+      var a = (-90 + j*(360/n)) * Math.PI/180;
+      var ex = cx + maxR*Math.cos(a);
+      var ey = cy + maxR*Math.sin(a);
+      axisSVG += '<line x1="'+cx+'" y1="'+cy+'" x2="'+ex+'" y2="'+ey+'" stroke="#BFBFBF" stroke-width="1"/>';
+    }
+
+    var svg = '<svg width="'+size+'" height="'+(size+20)+'" viewBox="0 0 '+size+' '+(size+20)+'" xmlns="http://www.w3.org/2000/svg">'+
+      gridSVG + axisSVG +
+      '<polygon points="'+points.join(' ')+'" fill="'+color+'" fill-opacity="0.28" stroke="'+color+'" stroke-width="2.5"/>'+
+      labels +
+      '</svg>';
+    return svg;
+  }
+
+  function renderResults(results, combinedScore, allDimScores){
+    var heading = document.getElementById('resultsHeading');
+    var sub = document.getElementById('resultsSubheading');
+    var body = document.getElementById('resultsBody');
+
+    var namePart = state.name ? state.name : 'Your';
+    var possessive = state.name ? (state.name + "'s") : 'Your';
+    heading.textContent = state.company ? (possessive + ' results — ' + state.company) : (possessive + ' results');
+    sub.textContent = 'A scored view of AI readiness, dimension by dimension.';
+
+    var html = '';
+
+    if(combinedScore !== null){
+      var clevel = getLevel(combinedScore);
+      html += '<div class="tier-result">'+
+        '<div class="tier-heading">Combined score</div>'+
+        '<div class="level-badge" style="background:'+clevel.color+'">'+clevel.name+'</div>'+
+        '<div class="score-big">'+combinedScore+'<span> / 100</span></div>'+
+        '<div class="callout">'+ (results.org.tierScore - results.individual.tierScore > 15 ? COMPARISON.orgAhead : (results.individual.tierScore - results.org.tierScore > 15 ? COMPARISON.indAhead : COMPARISON.balanced)) +'</div>'+
+        '</div>';
+    }
+
+    ['org','individual'].forEach(function(tierKey){
+      if(!results[tierKey]) return;
+      var r = results[tierKey];
+      var level = getLevel(r.tierScore);
+      html += '<div class="tier-result">'+
+        '<div class="tier-heading">'+TIERS[tierKey].label+'</div>'+
+        '<div class="level-badge" style="background:'+level.color+'">'+level.name+'</div>'+
+        '<div class="score-big">'+r.tierScore+'<span> / 100</span></div>'+
+        '<p>'+NARRATIVES[tierKey][level.id]+'</p>'+
+        '<div class="radar-wrap">'+radarSVG(r.dimScores.map(function(d){return d.name;}), r.dimScores.map(function(d){return d.score;}), level.color)+'</div>'+
+        '<div class="bars">'+
+        r.dimScores.map(function(d){
+          return '<div class="bar-row"><div class="bar-label-row"><span class="dn">'+d.name+'</span><span class="dv">'+d.score+'</span></div>'+
+            '<div class="bar-track"><div class="bar-fill" style="width:'+d.score+'%"></div></div></div>';
+        }).join('') +
+        '</div>'+
+        '</div>';
+    });
+
+    // priority moves: two lowest across all dims answered
+    var sorted = allDimScores.slice().sort(function(a,b){ return a.score - b.score; });
+    var top2 = sorted.slice(0,2);
+    html += '<h2>Where to focus first</h2>';
+    top2.forEach(function(d){
+      html += '<div class="priority-item"><span class="pt-name">'+d.dimName+'</span> — <span class="pt-score">'+d.score+' / 100</span>'+
+        '<p>'+RECOMMENDATIONS[d.dimId]+'</p></div>';
+    });
+
+    body.innerHTML = html;
+  }
+
+  document.getElementById('restartBtn').addEventListener('click', function(){
+    location.reload();
+  });
+  document.getElementById('printBtn').addEventListener('click', function(){
+    window.print();
+  });
+
+})();
+</script>
+
+</body>
+</html>
