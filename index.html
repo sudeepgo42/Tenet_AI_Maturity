@@ -19,13 +19,14 @@
     --white:#FFFFFF;
   }
   *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden;}
   body{
     font-family:Arial, Helvetica, sans-serif;
     color:var(--body);
     background:var(--light-bg);
     line-height:1.5;
   }
+  p, h1, h2, .q-text, .opt-text, .lede{overflow-wrap:break-word;word-break:break-word;}
   .topbar{
     background:var(--white);
     border-bottom:3px solid var(--purple);
@@ -279,7 +280,8 @@
   .tier-result:last-of-type{border-bottom:none;}
   .tier-heading{font-size:13px;color:var(--black50);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;font-weight:bold;}
 
-  .radar-wrap{display:flex;justify-content:center;margin:18px 0;}
+  .radar-wrap{display:flex;justify-content:center;margin:18px 0;max-width:100%;}
+  .radar-wrap svg{max-width:100%;min-width:0;}
   .bars{margin-top:20px;}
   .bar-row{margin-bottom:14px;}
   .bar-label-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;}
@@ -319,6 +321,8 @@
     .q-text{font-size:17px;}
   }
 </style>
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 </head>
 <body>
 
@@ -983,6 +987,7 @@
       combinedScore = Math.round(0.6*results.org.tierScore + 0.4*results.individual.tierScore);
     }
 
+    submitToSupabase(results, combinedScore, allDimScores);
     renderResults(results, combinedScore, allDimScores);
 
     setTimeout(function(){
@@ -993,11 +998,38 @@
     }, 150);
   }
 
+  // ---------- SUPABASE (best-effort, never blocks the results screen) ----------
+  var supabaseClient = null;
+  try{
+    if(window.SUPABASE_URL && window.SUPABASE_ANON_KEY && window.supabase){
+      supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+    }
+  }catch(e){ console.warn('Supabase client not initialised:', e); }
+
+  function submitToSupabase(results, combinedScore, allDimScores){
+    if(!supabaseClient) return;
+    var row = {
+      respondent_name: state.name || null,
+      company: state.company || null,
+      scope: state.scope,
+      org_score: results.org ? results.org.tierScore : null,
+      individual_score: results.individual ? results.individual.tierScore : null,
+      combined_score: combinedScore,
+      org_level: results.org ? getLevel(results.org.tierScore).id : null,
+      individual_level: results.individual ? getLevel(results.individual.tierScore).id : null,
+      dim_scores: allDimScores,
+      answers: state.answers
+    };
+    supabaseClient.from('submissions').insert([row]).then(function(res){
+      if(res.error) console.warn('Supabase insert failed:', res.error.message);
+    });
+  }
+
   function radarSVG(dims, scores, color, size){
-    size = size || 280;
+    size = size || 320;
     var n = dims.length;
     var cx = size/2, cy = size/2;
-    var maxR = size/2 - 46;
+    var maxR = size/2 - 78;
     var points = [];
     var gridPolys = [0.25,0.5,0.75,1].map(function(){ return []; });
     var labels = '';
@@ -1015,8 +1047,8 @@
         gridPolys[gi].push(gx+','+gy);
       });
 
-      var lx = cx + (maxR+26)*Math.cos(angle);
-      var ly = cy + (maxR+26)*Math.sin(angle);
+      var lx = cx + (maxR+30)*Math.cos(angle);
+      var ly = cy + (maxR+30)*Math.sin(angle);
       var anchor = 'middle';
       if(Math.cos(angle) > 0.3) anchor = 'start';
       else if(Math.cos(angle) < -0.3) anchor = 'end';
@@ -1044,7 +1076,7 @@
       axisSVG += '<line x1="'+cx+'" y1="'+cy+'" x2="'+ex+'" y2="'+ey+'" stroke="#BFBFBF" stroke-width="1"/>';
     }
 
-    var svg = '<svg width="'+size+'" height="'+(size+20)+'" viewBox="0 0 '+size+' '+(size+20)+'" xmlns="http://www.w3.org/2000/svg">'+
+    var svg = '<svg viewBox="0 0 '+size+' '+(size+20)+'" style="width:100%;max-width:'+size+'px;height:auto;display:block;overflow:visible;" xmlns="http://www.w3.org/2000/svg">'+
       gridSVG + axisSVG +
       '<polygon points="'+points.join(' ')+'" fill="'+color+'" fill-opacity="0.28" stroke="'+color+'" stroke-width="2.5"/>'+
       labels +
