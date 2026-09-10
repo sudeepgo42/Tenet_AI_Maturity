@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporting — The Compounder Index</title>
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<style>
+  :root{
+    --purple:#4F1352; --pink:#D10079; --purple-grey:#998CA0; --body:#404040;
+    --light-bg:#F3EFF4; --tint90:#614265; --tint80:#735478; --black25:#BFBFBF; --black50:#808080; --white:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:Arial, Helvetica, sans-serif;color:var(--body);background:var(--light-bg);line-height:1.5;}
+  .topbar{background:var(--white);border-bottom:3px solid var(--purple);padding:18px 32px;display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px;}
+  .wordmark-group{display:flex;align-items:baseline;gap:12px;}
+  .wordmark{font-weight:bold;font-size:22px;letter-spacing:3px;color:var(--purple);}
+  .tagline{font-size:12px;color:var(--purple-grey);}
+  .tool-label{font-size:13px;color:var(--pink);font-weight:bold;letter-spacing:0.5px;text-transform:uppercase;}
+  .container{max-width:920px;margin:0 auto;padding:36px 20px 80px;}
+  .card{background:var(--white);border:1px solid var(--black25);border-radius:14px;padding:44px;box-shadow:0 2px 14px rgba(79,19,82,0.06);}
+  .card.hidden{display:none;}
+  h1{font-size:28px;color:var(--purple);margin:0 0 6px;font-weight:bold;}
+  h2{font-size:17px;color:var(--purple);margin:30px 0 14px;font-weight:bold;}
+  p{margin:0 0 14px;font-size:15px;}
+  .note{font-size:12.5px;color:var(--black50);}
+  input[type="password"]{width:100%;max-width:280px;padding:11px 14px;border:1px solid var(--black25);border-radius:6px;font-size:15px;margin:14px 0;}
+  .btn{display:inline-block;font-size:15px;font-weight:bold;padding:12px 26px;border-radius:30px;border:2px solid var(--purple);background:var(--purple);color:var(--white);cursor:pointer;}
+  .btn:hover{background:var(--tint90);border-color:var(--tint90);}
+  .btn-secondary{background:var(--white);color:var(--purple);}
+  .btn-secondary:hover{background:var(--light-bg);}
+  .error-msg{color:var(--pink);font-size:13.5px;margin-top:-6px;}
+
+  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:8px;}
+  @media(max-width:700px){.stat-grid{grid-template-columns:repeat(2,1fr);}}
+  .stat-tile{background:var(--light-bg);border-radius:10px;padding:16px 14px;text-align:center;}
+  .stat-tile .num{font-size:26px;font-weight:bold;color:var(--purple);}
+  .stat-tile .lbl{font-size:11.5px;color:var(--black50);text-transform:uppercase;letter-spacing:0.4px;margin-top:2px;}
+
+  .bar-row{margin-bottom:12px;}
+  .bar-label-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;}
+  .bar-label-row .dn{font-weight:bold;color:var(--body);}
+  .bar-label-row .dv{font-weight:bold;color:var(--purple);}
+  .bar-track{height:8px;background:var(--light-bg);border-radius:6px;overflow:hidden;}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--purple),var(--pink));border-radius:6px;}
+
+  .level-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:13.5px;}
+  .level-swatch{width:14px;height:14px;border-radius:3px;flex:0 0 14px;}
+  .level-row .lname{font-weight:bold;width:100px;}
+  .level-track{flex:1;height:14px;background:var(--light-bg);border-radius:4px;overflow:hidden;}
+  .level-fill{height:100%;}
+  .level-count{width:34px;text-align:right;color:var(--black50);}
+
+  .empty{color:var(--black50);font-size:14px;padding:20px 0;}
+  .refresh-row{display:flex;justify-content:flex-end;margin-bottom:10px;}
+  footer{text-align:center;color:var(--black50);font-size:12px;padding:24px 20px 40px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark-group">
+    <div class="wordmark">TENET</div>
+    <div class="tagline">Advisory &amp; Investments</div>
+  </div>
+  <div class="tool-label">Reporting — internal</div>
+</div>
+
+<main class="container">
+
+  <section class="card" id="gate">
+    <h1>Reporting</h1>
+    <p>This page shows aggregated, non-identifying results from The Compounder Index. It is not linked from the public diagnostic. Enter the shared passphrase to continue.</p>
+    <input type="password" id="passInput" placeholder="Passphrase">
+    <div class="error-msg" id="passError" style="display:none;">That passphrase is not correct.</div>
+    <div><button class="btn" id="unlockBtn">View reporting</button></div>
+    <p class="note" style="margin-top:20px;">This passphrase is a light deterrent, not real security. Anyone who reads the page source can find it. Do not use this page to display anything you would not want a curious visitor to see.</p>
+  </section>
+
+  <section class="card hidden" id="dash">
+    <h1>Reporting</h1>
+    <p>Aggregated results across every submission to The Compounder Index. Individual names and organisations are never shown here. To see or export raw responses, use the Table Editor in your Supabase project.</p>
+
+    <div class="refresh-row"><button class="btn btn-secondary" id="refreshBtn">Refresh</button></div>
+
+    <div id="content"></div>
+  </section>
+
+</main>
+
+<footer>The Compounder Index is a Tenet Advisory &amp; Investments diagnostic.</footer>
+
+<script>
+(function(){
+
+  var ORG_DIM_NAMES = ['Strategy & Ambition','Leadership & Governance','Data & Technology Foundation','Capability & Culture','Workflow & Operating Model','Value & Measurement'];
+  var IND_DIM_NAMES = ['Knowledge','Usage Depth','Applied Skill','Attitude & Confidence','Behaviour Change'];
+
+  var LEVELS = [
+    {id:'bystander', name:'Bystander', color:'#998CA0'},
+    {id:'adopter', name:'Adopter', color:'#735478'},
+    {id:'integrator', name:'Integrator', color:'#4F1352'},
+    {id:'compounder', name:'Compounder', color:'#D10079'}
+  ];
+
+  var gate = document.getElementById('gate');
+  var dash = document.getElementById('dash');
+  var passInput = document.getElementById('passInput');
+  var passError = document.getElementById('passError');
+  var content = document.getElementById('content');
+
+  var supabaseClient = null;
+  try{
+    if(window.SUPABASE_URL && window.SUPABASE_ANON_KEY && window.supabase){
+      supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+    }
+  }catch(e){ console.warn('Supabase client not initialised:', e); }
+
+  document.getElementById('unlockBtn').addEventListener('click', function(){
+    if(passInput.value === (window.DASHBOARD_PASSPHRASE || '')){
+      gate.classList.add('hidden');
+      dash.classList.remove('hidden');
+      loadStats();
+    } else {
+      passError.style.display = 'block';
+    }
+  });
+  passInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter') document.getElementById('unlockBtn').click();
+  });
+  document.getElementById('refreshBtn').addEventListener('click', loadStats);
+
+  function loadStats(){
+    content.innerHTML = '<p class="empty">Loading...</p>';
+    if(!supabaseClient){
+      content.innerHTML = '<p class="empty">Supabase is not configured yet. Add your project URL and anon key to config.js.</p>';
+      return;
+    }
+    supabaseClient.rpc('get_dashboard_stats').then(function(res){
+      if(res.error){
+        content.innerHTML = '<p class="empty">Could not load reporting data: '+res.error.message+'</p>';
+        return;
+      }
+      render(res.data);
+    });
+  }
+
+  function bar(label, value){
+    return '<div class="bar-row"><div class="bar-label-row"><span class="dn">'+label+'</span><span class="dv">'+(value===null||value===undefined?'—':value)+'</span></div>'+
+      '<div class="bar-track"><div class="bar-fill" style="width:'+(value||0)+'%"></div></div></div>';
+  }
+
+  function levelDistribution(dist){
+    var total = 0;
+    LEVELS.forEach(function(l){ total += (dist[l.id]||0); });
+    var html = '';
+    LEVELS.forEach(function(l){
+      var n = dist[l.id] || 0;
+      var pct = total ? Math.round((n/total)*100) : 0;
+      html += '<div class="level-row"><div class="level-swatch" style="background:'+l.color+'"></div>'+
+        '<div class="lname">'+l.name+'</div>'+
+        '<div class="level-track"><div class="level-fill" style="width:'+pct+'%;background:'+l.color+'"></div></div>'+
+        '<div class="level-count">'+n+'</div></div>';
+    });
+    return total ? html : '<p class="empty">No submissions yet.</p>';
+  }
+
+  function trendChart(trend){
+    if(!trend || !trend.length){ return '<p class="empty">Not enough data yet for a trend line.</p>'; }
+    var w = 800, h = 200, pad = 30;
+    var n = trend.length;
+    var maxN = Math.max(1, n-1);
+    var points = trend.map(function(t, i){
+      var x = pad + (i/maxN) * (w - pad*2);
+      var y = h - pad - ((t.avg_combined/100) * (h - pad*2));
+      return {x:x, y:y, t:t};
+    });
+    var pathD = points.map(function(p,i){ return (i===0?'M':'L')+p.x.toFixed(1)+','+p.y.toFixed(1); }).join(' ');
+    var dots = points.map(function(p){
+      return '<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="4" fill="#D10079"></circle>'+
+        '<text x="'+p.x.toFixed(1)+'" y="'+h+'" font-size="10" fill="#808080" text-anchor="middle" font-family="Arial">'+p.t.week_start.slice(5)+'</text>';
+    }).join('');
+    var gridLines = [0,25,50,75,100].map(function(v){
+      var y = h - pad - (v/100)*(h-pad*2);
+      return '<line x1="'+pad+'" y1="'+y+'" x2="'+(w-pad)+'" y2="'+y+'" stroke="#BFBFBF" stroke-width="1"/>'+
+        '<text x="4" y="'+(y+3)+'" font-size="10" fill="#808080" font-family="Arial">'+v+'</text>';
+    }).join('');
+    return '<svg width="100%" viewBox="0 0 '+w+' '+(h+16)+'" xmlns="http://www.w3.org/2000/svg">'+
+      gridLines +
+      '<path d="'+pathD+'" fill="none" stroke="#4F1352" stroke-width="2.5"/>'+
+      dots +
+      '</svg>';
+  }
+
+  function render(d){
+    var html = '';
+
+    html += '<div class="stat-grid">'+
+      '<div class="stat-tile"><div class="num">'+d.total_submissions+'</div><div class="lbl">Total submissions</div></div>'+
+      '<div class="stat-tile"><div class="num">'+(d.avg_org_score===null?'—':d.avg_org_score)+'</div><div class="lbl">Avg. org score</div></div>'+
+      '<div class="stat-tile"><div class="num">'+(d.avg_individual_score===null?'—':d.avg_individual_score)+'</div><div class="lbl">Avg. individual score</div></div>'+
+      '<div class="stat-tile"><div class="num">'+(d.avg_combined_score===null?'—':d.avg_combined_score)+'</div><div class="lbl">Avg. combined score</div></div>'+
+      '</div>';
+
+    html += '<h2>Organisational maturity distribution ('+d.org_submissions+' submissions)</h2>';
+    html += levelDistribution(d.org_level_distribution || {});
+
+    html += '<h2>Individual maturity distribution ('+d.individual_submissions+' submissions)</h2>';
+    html += levelDistribution(d.individual_level_distribution || {});
+
+    html += '<h2>Average score by organisational dimension</h2>';
+    var avgDims = d.avg_dim_scores || {};
+    var orgHtml = ORG_DIM_NAMES.map(function(n){ return bar(n, avgDims[n]); }).join('');
+    html += orgHtml || '<p class="empty">No data yet.</p>';
+
+    html += '<h2>Average score by individual dimension</h2>';
+    var indHtml = IND_DIM_NAMES.map(function(n){ return bar(n, avgDims[n]); }).join('');
+    html += indHtml || '<p class="empty">No data yet.</p>';
+
+    html += '<h2>Combined score, by week</h2>';
+    html += trendChart(d.weekly_trend);
+
+    content.innerHTML = html;
+  }
+
+})();
+</script>
+
+</body>
+</html>
