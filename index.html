@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Compounder Index — Tenet Advisory & Investments</title>
+<title>The Compounder Index – Tenet Advisory & Investments</title>
 <style>
   :root{
     --purple:#4F1352;
@@ -32,23 +32,16 @@
     border-bottom:3px solid var(--purple);
     padding:18px 32px;
     display:flex;
-    align-items:baseline;
+    align-items:center;
     justify-content:space-between;
     flex-wrap:wrap;
     gap:6px;
   }
-  .wordmark-group{display:flex;align-items:baseline;gap:12px;}
-  .wordmark{
-    font-weight:bold;
-    font-size:22px;
-    letter-spacing:3px;
-    color:var(--purple);
-  }
-  .tagline{
-    font-size:12px;
-    color:var(--purple-grey);
-    letter-spacing:0.5px;
-  }
+  /* The mark is the same purple-on-white asset the Value Realisation tool uses,
+     inlined so this file stays self-contained. The topbar is white on screen and
+     on paper, so one mark covers both and there is no print swap. */
+  .logo-slot{display:flex;align-items:center;}
+  .logo-slot img{height:38px;width:auto;display:block;}
   .tool-label{
     font-size:13px;
     color:var(--pink);
@@ -57,11 +50,24 @@
     text-transform:uppercase;
   }
   .progress-wrap{
-    height:5px;
-    background:var(--black25);
-    width:100%;
+    background:var(--white);
+    padding:6px 32px 10px;
   }
   .progress-wrap.hidden{display:none;}
+  .progress-label{
+    font-size:12px;
+    font-weight:bold;
+    color:var(--tint90);
+    text-align:right;
+    margin-bottom:4px;
+  }
+  .progress-track{
+    height:10px;
+    background:var(--black25);
+    width:100%;
+    border-radius:5px;
+    overflow:hidden;
+  }
   .progress-bar{
     height:100%;
     background:linear-gradient(90deg, var(--purple), var(--pink));
@@ -158,6 +164,19 @@
     margin-bottom:22px;
   }
   @media(max-width:520px){.field-row{grid-template-columns:1fr;}}
+  .field-row-single{grid-template-columns:1fr;max-width:340px;}
+  select{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--black25);
+    border-radius:6px;
+    font-size:14px;
+    font-family:Arial, Helvetica, sans-serif;
+    background:var(--white);
+    color:var(--body);
+  }
+  select:focus{outline:2px solid var(--purple-grey);outline-offset:1px;}
+  .field-note{font-size:12.5px;color:var(--black50);margin:-10px 0 22px;max-width:640px;}
   label.field-label{
     display:block;
     font-size:12px;
@@ -176,6 +195,32 @@
     color:var(--body);
   }
   input[type="text"]:focus{outline:2px solid var(--pink);border-color:var(--pink);}
+  .contact-block{
+    margin-top:34px;
+    padding:24px 26px;
+    background:var(--light-bg);
+    border-radius:10px;
+    border-left:4px solid var(--purple);
+  }
+  .contact-block h2{margin-top:0;}
+  .contact-block p{font-size:14.5px;}
+  .contact-name{font-weight:bold;color:var(--purple);font-size:15px;margin-top:14px;}
+  .contact-line{font-size:14.5px;margin-top:3px;}
+  .contact-line a{color:var(--pink);text-decoration:none;}
+  .contact-line a:hover{text-decoration:underline;}
+  .contact-org{font-size:13px;color:var(--black50);margin-top:3px;}
+  .resume-bar{
+    background:var(--light-bg);
+    border:1px solid var(--black25);
+    border-left:4px solid var(--pink);
+    border-radius:8px;
+    padding:16px 18px;
+    margin-bottom:26px;
+  }
+  .resume-bar.hidden{display:none;}
+  .resume-text{font-size:14px;margin-bottom:12px;}
+  .resume-actions{display:flex;gap:10px;flex-wrap:wrap;}
+  .resume-actions .btn{font-size:14px;padding:9px 18px;}
 
   details{
     margin-top:22px;
@@ -261,6 +306,51 @@
     color:var(--white);
   }
   .opt-text{font-size:15px;padding-top:2px;}
+  .q-helper{font-size:13.5px;color:var(--black50);margin:-14px 0 20px;}
+  /* Outside the A-D ladder on purpose: no letter badge, because a badge reads as a
+     position on the scale and this answer has none. */
+  .dk-wrap{margin-top:16px;padding-top:14px;border-top:1px solid var(--black25);}
+  .dk-option{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:13.5px;
+    color:var(--black50);
+    background:none;
+    border:1px solid var(--black25);
+    border-radius:8px;
+    padding:8px 14px;
+    cursor:pointer;
+  }
+  .dk-option:hover{border-color:var(--purple-grey);color:var(--body);}
+  .dk-option.selected{border-color:var(--pink);background:var(--light-bg);color:var(--purple);font-weight:bold;}
+
+  /* Before you finish - unscored */
+  .u-block{margin-bottom:30px;}
+  .u-text{font-size:17px;color:var(--purple);font-weight:bold;margin-bottom:6px;line-height:1.4;}
+  .u-helper{font-size:13px;color:var(--black50);margin:0 0 12px;}
+  .u-options{display:flex;flex-direction:column;gap:8px;}
+  .u-option{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    border:2px solid var(--black25);
+    border-radius:10px;
+    padding:11px 14px;
+    cursor:pointer;
+    font-size:14.5px;
+  }
+  .u-option:hover{border-color:var(--purple-grey);}
+  .u-option.selected{border-color:var(--pink);background:var(--light-bg);}
+  .u-option input{margin:2px 0 0;accent-color:var(--pink);}
+  .u-other{margin-top:8px;}
+  textarea{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--black25);
+    border-radius:6px;
+    font-size:14px;
+    font-family:Arial, Helvetica, sans-serif;
+    min-height:80px;
+  }
 
   /* Results */
   .level-badge{
@@ -298,6 +388,9 @@
     margin:24px 0;
     font-size:14.5px;
   }
+  .bar-rec{font-size:13.5px;color:var(--body);margin:6px 0 0;}
+  .tier-framing{font-size:13.5px;color:var(--black50);margin:0 0 4px;max-width:680px;}
+  .focus-intro{font-size:14.5px;margin:0 0 14px;}
   .priority-item{margin-bottom:16px;}
   .priority-item .pt-name{font-weight:bold;color:var(--purple);font-size:14.5px;}
   .priority-item .pt-score{color:var(--pink);font-weight:bold;}
@@ -311,9 +404,15 @@
   }
 
   @media print{
-    .topbar .tool-label, .progress-wrap, .btn-row, footer, #screen-intro, #screen-quiz{display:none !important;}
+    .topbar .tool-label, .progress-wrap, .btn-row, .resume-bar, #screen-intro, #screen-quiz{display:none !important;}
     body{background:var(--white);}
     .card{box-shadow:none;border:none;padding:0;}
+    /* The disclaimer is the one line that matters most on a printed result, so it stays. */
+    footer{display:block !important;border-top:1px solid var(--black25);margin-top:24px;padding-top:12px;text-align:left;}
+    .bar-row{break-inside:avoid;}
+    #screen-final{display:none !important;}
+    .contact-block{background:none;border-left:3px solid var(--purple);padding:0 0 0 14px;break-inside:avoid;}
+    .contact-line a{color:var(--body);}
   }
   @media(max-width:600px){
     .card{padding:26px 20px;}
@@ -327,22 +426,33 @@
 <body>
 
 <div class="topbar">
-  <div class="wordmark-group">
-    <div class="wordmark">TENET</div>
-    <div class="tagline">Advisory &amp; Investments</div>
+  <div class="logo-slot">
+    <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMzg3LjMxIDk5My4wMyI+CiAgPGRlZnM+CiAgICA8c3R5bGU+CiAgICAgIC5jbHMtMSB7CiAgICAgICAgZmlsbDogIzRGMTM1MjsKICAgICAgfQogICAgPC9zdHlsZT4KICA8L2RlZnM+CiAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMTk5LjY5LDIxNi40NHYzMjYuMjRjMCwxMy4yMywxMC43MywyMy45NSwyMy45NSwyMy45NWgyMy4yOXY5OC40NmgtNDkuNjhjLTUzLjAzLDAtOTYuMDItNDIuOTktOTYuMDItOTYuMDJWMjE2LjQ0aDEuMDljLjE5LDAsLjM3LDAsLjU2LS4wMUgwdi05OC40Nmg3NS4wNWMxMy4yMywwLDIzLjk1LTEwLjcyLDIzLjk1LTIzLjk1VjBoOTguNDd2MTIwLjQxYy4wMS40LjAyLjc5LjAzLDEuMTksMC0uMzksMC0uNzgsMC0xLjE3di0yLjQ2aDk5LjU2djk4LjQ3aC05Ny4zOFoiLz4KICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik03MzEuMDksMTUwLjg3Yy0zOS4wMS0yMi41Mi04NS4zMS0zMy43OC0xMzguODgtMzMuNzgtNTAuMDUsMC05NS4zOCwxMS43Ny0xMzYsMzUuMzEtNDAuNjMsMjMuNTYtNzIuNjUsNTYuMTYtOTYuMDUsOTcuODItMTYuODcsMzAuMDQtMjcuNjYsNjIuNzktMzIuMzYsOTguMjUtMS41OCwxMS44NS0yLjQ2LDI0LTIuNjgsMzYuNDYsMCwwLDAsLjAxLDAsLjAyLS4wMS4xNy0uMDMuMzMtLjAxLjUtLjAzLjQ5LS4wNC45OC0uMDQsMS40OCwwLC4yOSwwLC41Ni4wMy44NCwwLDAsMCwwLDAsMC0uMDMsMS4wMi0uMDMsMi4wNS0uMDMsMy4wOCwwLDExLjc5LjUzLDIzLjI2LDEuNiwzNC40MywzLjgzLDQwLjQ1LDE0LjY0LDc2Ljg5LDMyLjQxLDEwOS4yOSwyMi42Niw0MS4zNyw1NC40NSw3My40NSw5NS4zOCw5Ni4yNyw0MC45MiwyMi44Miw4OC4wMiwzNC4yMiwxNDEuMywzNC4yMiw0Mi4zOCwwLDgwLjg4LTcuMDUsMTE1LjQ4LTIxLjE5LDM0LjU5LTE0LjEyLDYzLjM2LTM0LjM2LDg2LjMyLTYwLjcxLDIyLjk2LTI2LjM1LDM4LjU2LTU2Ljg5LDQ2LjgxLTkxLjY0aC0xMDEuMTNjLTUuNiwxOC41NS0xNS4zMSwzNC44OS0yOS4xNCw0OS4wMi0xMy44NCwxNC4xMi0zMC45MSwyNS4wMy01MS4yMiwzMi42Ni0yMC4zMiw3LjY3LTQyLjcsMTEuNDktNjcuMTIsMTEuNDktMzMuNTYsMC02My4wMS03LjI4LTg4LjMyLTIxLjg2LTI1LjMyLTE0LjU2LTQ0Ljk4LTM1LjEtNTguOTYtNjEuNTktMTEuODQtMjIuNDMtMTguNjctNDcuNzMtMjAuNDktNzUuODZoMzczLjU0bC0uMTEtLjFoNDguMjRjLjg4LTQuNywxLjU1LTExLjkxLDItMjEuNjMuNDQtOS43Mi42Ni0xOC44NC42Ni0yNy4zOCwwLTQ5LjE3LTEwLjQ1LTkzLjM5LTMxLjM1LTEzMi42OS0yMC45MS0zOS4zMS01MC44NS03MC4yMi04OS44NS05Mi43M1pNNzE1LjIxLDM0OC40OGgtLjAycy0yODYuNzctLjAxLTI4Ni43Ny0uMDFjMi43OC0yNy40NiwxMC40LTUyLjAzLDIyLjkzLTczLjc0LDE0LjQyLTI1LjAxLDM0LTQ0LjM4LDU4LjczLTU4LjA2LDI0LjczLTEzLjcsNTIuOTktMjAuNTQsODQuNzgtMjAuNTRzNTguNSw2LjcsODIuOCwyMC4wOWMyNC4yOCwxMy40LDQzLjIsMzIuMDksNTYuNzMsNTYuMDgsMTIuNTcsMjIuMjksMTkuMzIsNDcuNjcsMjAuMjEsNzYuMTdoLTM5LjM5WiIvPgogIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTIzODcuMzEsMTE3Ljk3djk4LjQ2aC05OC45OXMtMi4yMS4wMS0yLjIxLjAxdjM1Mi42M2MwLDUzLjAzLTQyLjk5LDk2LjAyLTk2LjAyLDk2LjAyaC00OS42N3YtOTguNDZoMjMuMjhjMTMuMjMsMCwyMy45NS0xMC43MiwyMy45NS0yMy45NVYyMTYuNDRoLTk3LjM4di05OC40N2g5OS41OFYwaDk4LjQ2djk0LjAyYzAsMTMuMjMsMTAuNzIsMjMuOTUsMjMuOTUsMjMuOTVoNzUuMDVaIi8+CiAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMjA2Mi4yNiwzODYuOTVjMC0uNS0uMDEtMS0uMDQtMS40OC4wMS0uMTcsMC0uMzMtLjAxLS41LDAsMCwwLS4wMSwwLS4wMi0uMjEtMTIuNDYtMS4xLTI0LjYxLTIuNjgtMzYuNDYtNC43LTM1LjQ2LTE1LjQ5LTY4LjIxLTMyLjM2LTk4LjI1LTIzLjQtNDEuNjYtNTUuNDItNzQuMjYtOTYuMDUtOTcuODItNDAuNjItMjMuNTQtODUuOTUtMzUuMzEtMTM2LTM1LjMxLTUzLjU3LDAtOTkuODcsMTEuMjYtMTM4Ljg4LDMzLjc4LTM5LjAxLDIyLjUyLTY4Ljk1LDUzLjQzLTg5Ljg1LDkyLjczLTIwLjkxLDM5LjMxLTMxLjM1LDgzLjUzLTMxLjM1LDEzMi42OSwwLDguNTQuMjEsMTcuNjYuNjYsMjcuMzguNDQsOS43MiwxLjExLDE2LjkzLDIsMjEuNjNoNDguMjRsLS4xMS4xaDM3My41NGMtMS44MiwyOC4xMy04LjY1LDUzLjQzLTIwLjQ5LDc1Ljg2LTEzLjk4LDI2LjQ5LTMzLjYzLDQ3LjAzLTU4Ljk2LDYxLjU5LTI1LjMxLDE0LjU4LTU0Ljc1LDIxLjg2LTg4LjMyLDIxLjg2LTI0LjQzLDAtNDYuOC0zLjgyLTY3LjEyLTExLjQ5LTIwLjMxLTcuNjQtMzcuMzgtMTguNTQtNTEuMjItMzIuNjYtMTMuODQtMTQuMTQtMjMuNTQtMzAuNDctMjkuMTQtNDkuMDJoLTEwMS4xM2M4LjI1LDM0Ljc0LDIzLjg2LDY1LjI4LDQ2LjgxLDkxLjY0LDIyLjk2LDI2LjM1LDUxLjczLDQ2LjU5LDg2LjMyLDYwLjcxLDM0LjYsMTQuMTQsNzMuMDksMjEuMTksMTE1LjQ4LDIxLjE5LDUzLjI5LDAsMTAwLjM5LTExLjQsMTQxLjMtMzQuMjIsNDAuOTMtMjIuODIsNzIuNzItNTQuOSw5NS4zOC05Ni4yNywxNy43Ny0zMi40MSwyOC41Ny02OC44NSwzMi40MS0xMDkuMjksMS4wNy0xMS4xNywxLjYtMjIuNjQsMS42LTM0LjQzLDAtMS4wNCwwLTIuMDYtLjAzLTMuMDhoMGMuMDMtLjI5LjAzLS41Ny4wMy0uODVaTTE2NzIuMTIsMzQ4LjQ3aC0uMDJzLTM5LjM5LjAxLTM5LjM5LjAxYy44OC0yOC41LDcuNjQtNTMuODgsMjAuMjEtNzYuMTcsMTMuNTQtMjMuOTksMzIuNDUtNDIuNjgsNTYuNzMtNTYuMDgsMjQuMy0xMy40LDUxLjg5LTIwLjA5LDgyLjgtMjAuMDlzNjAuMDYsNi44NCw4NC43OCwyMC41NGMyNC43MywxMy42OCw0NC4zMSwzMy4wNSw1OC43Myw1OC4wNiwxMi41MywyMS43LDIwLjE1LDQ2LjI3LDIyLjkzLDczLjc0aC0yODYuNzdaIi8+CiAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMTM0MC44NiwxNDYuMjJjLTM5LjY2LTE5LjQzLTg2LjQyLTI5LjE0LTE0MC4yOC0yOS4xNHMtMTAwLjYyLDkuNzItMTQwLjI4LDI5LjE0Yy0zOS42NSwxOS40My03MC4zNCw0OC41Ny05Mi4wNSw4Ny40Mi0yMS43LDM4Ljg1LTMyLjU2LDg2LjY4LTMyLjU2LDE0My41djI3MS42aDEwMC4wOHYtMjc1LjIyYzAtMzcuNzgsNi4zNy02OS42MSwxOS4wOS05NS40NiwxMi43My0yNS44NiwzMS4zNS00NS4yOSw1NS44Ny01OC4yOCwyNC41Mi0xMyw1NC40Ni0xOS40OSw4OS44NC0xOS40OXM2NS42Niw2LjQ5LDkwLjA0LDE5LjQ5YzI0LjM5LDEyLjk5LDQzLjAxLDMyLjQyLDU1Ljg3LDU4LjI4LDEyLjg2LDI1Ljg2LDE5LjI5LDU3LjY4LDE5LjI5LDk1LjQ2djI3NS4yMmgxMDAuMDl2LTI3MS42YzAtNTYuODEtMTAuOTItMTA0LjY1LTMyLjc2LTE0My41LTIxLjg0LTM4Ljg2LTUyLjU5LTY4LTkyLjI1LTg3LjQyWiIvPgogIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTIxNjIuOTYsODY4LjE3Yy0zLjAxLTYuMDItNy4yNi0xMC4yNy0xMi43Ni0xMi43Ni01LjUtMi40OS0xMS40NS0zLjczLTE3Ljg3LTMuNzMtNC4zMiwwLTguNTEuNTYtMTIuNTYsMS42Ny00LjA2LDEuMTItNy42OSwyLjc4LTEwLjksNS4wMS0zLjIxLDIuMjMtNS43Niw1LjEtNy42Niw4LjY0LTEuOSwzLjUzLTIuODUsNy42Ni0yLjg1LDEyLjM3LDAsNC4zMi45MSw3Ljk1LDIuNzUsMTAuODksMS44MywyLjk1LDQuMDIsNS4zNCw2LjU4LDcuMTcsMi41NSwxLjgzLDUuMTcsMy4yMSw3Ljg1LDQuMTIsMi42OC45Miw0LjgxLDEuNTcsNi4zOCwxLjk2bDEyLjU2LDIuOTVjNC44NCwxLjE4LDguOTYsMi43OCwxMi4zNyw0LjgxLDMuNCwyLjAzLDUuMTEsNS4zNCw1LjExLDkuOTIsMCwyLjYyLS42Miw0LjkxLTEuODcsNi44Ny0xLjI1LDEuOTYtMi44OCwzLjU3LTQuOTEsNC44MS0yLjAzLDEuMjUtNC4zNSwyLjE2LTYuOTcsMi43NS0yLjYyLjU5LTUuMjQuODgtNy44NS44OC01LjUsMC0xMC4yNC0xLjI0LTE0LjIzLTMuNzMtNC0yLjQ5LTcuMy01LjgyLTkuOTItMTAuMDFsLTExLjE5LDcuNjVjNC4zMiw2LjU1LDkuNTIsMTEuMTYsMTUuNjEsMTMuODQsNi4wOSwyLjY4LDEyLjY2LDQuMDIsMTkuNzMsNC4wMiw0LjQ1LDAsOC44My0uNTIsMTMuMTUtMS41Nyw0LjMyLTEuMDQsOC4xNS0yLjcxLDExLjQ4LTUuMDEsMy4zNC0yLjI5LDYuMDItNS4yMyw4LjA1LTguODMsMi4wMy0zLjYsMy4wNC03Ljg4LDMuMDQtMTIuODYsMC02LjU0LTIuMTMtMTIuMDEtNi4zOC0xNi4zOS00LjI1LTQuMzgtOS41OS03LjI5LTE2LTguNzRsLTEzLjE1LTMuMTRjLTYuMDItMS40NC0xMC41NC0zLjE0LTEzLjU1LTUuMS0zLjAxLTEuOTYtNC41Mi01LjExLTQuNTItOS40MiwwLTIuNDkuNTYtNC41OCwxLjY3LTYuMjgsMS4xMS0xLjcsMi41OC0zLjExLDQuNDItNC4yMiwxLjgzLTEuMTEsMy44OS0xLjkzLDYuMTgtMi40NSwyLjI5LS41Miw0LjU1LS43OSw2Ljc3LS43OSw0LjcxLDAsOC43LDEuMTEsMTEuOTgsMy4zNCwzLjI3LDIuMjMsNS44OSw1LjI0LDcuODUsOS4wM2wxMS41OC03LjY2Wk0yMDgzLjgyLDg1NC4wNGgtMjYuNXYtMjUuOTFoLTEyLjk2djI1LjkxaC0xOS40NHYxMS43OGgxOS40NHY1Ny45MmMwLDUuMS43Miw5LjIzLDIuMTYsMTIuMzcsMS40NCwzLjE0LDMuMjcsNS42Myw1LjUsNy40NiwyLjIyLDEuODMsNC42OCwzLjA4LDcuMzYsMy43MywyLjY4LjY1LDUuMjcuOTgsNy43Ni45OCw2LjgsMCwxMi42My0xLjExLDE3LjQ3LTMuMzRsLS41OS0xMS45OGMtMS45NiwxLjA1LTQuMTIsMS45LTYuNDgsMi41NS0yLjM2LjY2LTQuNjUuOTgtNi44Ny45OC0xLjk2LDAtMy43Ny0uMjMtNS40LS42OS0xLjY0LS40NS0zLjA0LTEuMjctNC4yMi0yLjQ1LTEuMTgtMS4xOC0yLjA5LTIuODUtMi43NS01LjAxLS42Ni0yLjE2LS45OC00Ljk0LS45OC04LjM0di01NC4xOGgyNi41di0xMS43OFpNMTkzMS44OSw4NTQuMDRjLjI2LDMuNDEuNDksNywuNjksMTAuOC4yLDMuOC4zLDYuOTQuMyw5LjQydjcxLjY2aDEyLjk2di00Ny4xMmMwLTguMzcsMS4zMS0xNC45MiwzLjkzLTE5LjYzLDIuNjItNC43MSw1LjU5LTguMjQsOC45My0xMC42LDMuMzQtMi4zNiw2LjUxLTMuNzksOS41Mi00LjMyLDMuMDEtLjUyLDQuODQtLjc5LDUuNS0uNzksOS41NSwwLDE2LjEsMi43MiwxOS42Myw4LjE1LDMuNTMsNS40Myw1LjMsMTMuMjUsNS4zLDIzLjQ2djUwLjg1aDEyLjk2di01OC4zMWMwLTExLjUxLTIuODItMjAuMzgtOC40NC0yNi42LTUuNjMtNi4yMS0xNC4zMy05LjMzLTI2LjExLTkuMzMtMy4wMSwwLTYuMDUuNDMtOS4xMywxLjI4LTMuMDguODUtNS45OSwyLjAzLTguNzQsMy41My0yLjc1LDEuNTEtNS4yNCwzLjMxLTcuNDYsNS40LTIuMjMsMi4xLTQuMDYsNC4zOS01LjUsNi44N2gtLjM5YzAtMi40OS0uMDMtNC45NC0uMS03LjM2LS4wNy0yLjQyLS4yMy00Ljg4LS40OS03LjM2aC0xMy4zNVpNMTkxMi45Miw5MDMuNTF2LTUuODljMC02LjI4LS45OC0xMi4yLTIuOTUtMTcuNzctMS45Ni01LjU2LTQuODEtMTAuNC04LjU0LTE0LjUzLTMuNzMtNC4xMi04LjM0LTcuNDMtMTMuODQtOS45Mi01LjUtMi40OS0xMS43Mi0zLjczLTE4LjY1LTMuNzMtNi41NSwwLTEyLjYzLDEuMjEtMTguMjYsMy42My01LjYzLDIuNDItMTAuNTQsNS43OS0xNC43MiwxMC4xMS00LjE5LDQuMzItNy40Niw5LjQyLTkuODIsMTUuMzEtMi4zNiw1Ljg5LTMuNTMsMTIuMzEtMy41MywxOS4yNHMxLjIxLDEzLjM1LDMuNjMsMTkuMjRjMi40Miw1Ljg5LDUuNzIsMTAuOTksOS45MiwxNS4zMSw0LjE5LDQuMzIsOS4xOSw3LjY5LDE1LjAyLDEwLjExLDUuODIsMi40MiwxMi4xNCwzLjYzLDE4Ljk0LDMuNjMsNy41OSwwLDE0LjY5LTEuNSwyMS4zLTQuNTEsNi42MS0zLjAxLDEyLjY3LTcuOTgsMTguMTYtMTQuOTJsLTEwLjAxLTguMjRjLTIuNjIsNC4xOS02LjQ1LDcuODktMTEuNDksMTEuMDktNS4wNCwzLjIxLTExLjAzLDQuODEtMTcuOTYsNC44MS00LjU4LDAtOC44My0uODUtMTIuNzYtMi41NS0zLjkzLTEuNy03LjQtNC4wMi0xMC40LTYuOTctMy4wMS0yLjk1LTUuNDMtNi40NC03LjI2LTEwLjUtMS44My00LjA2LTIuOTUtOC4zNy0zLjM0LTEyLjk2aDc2LjU3Wk0xODM2Ljc1LDg5Mi45MWMwLTMuNzkuODgtNy40NiwyLjY1LTEwLjk5LDEuNzctMy41NCw0LjEyLTYuNjgsNy4wNy05LjQyLDIuOTUtMi43NSw2LjM4LTQuOTQsMTAuMzEtNi41OCwzLjkzLTEuNjMsNy45OC0yLjQ1LDEyLjE3LTIuNDUsOS40MiwwLDE2Ljc1LDIuNzIsMjEuOTksOC4xNSw1LjIzLDUuNDMsNy44NSwxMi41Myw3Ljg1LDIxLjNoLTYyLjA0Wk0xNjY0LjkxLDk0NS45MmgxMi45NnYtNDcuMTJjMC04LjM3LDEuMjEtMTQuOTIsMy42My0xOS42MywyLjQyLTQuNzEsNS4xMy04LjI0LDguMTUtMTAuNiwzLjAxLTIuMzYsNS45Mi0zLjc5LDguNzQtNC4zMiwyLjgxLS41Miw0LjYxLS43OSw1LjQtLjc5LDguOSwwLDE0Ljk4LDIuNDksMTguMjYsNy40NiwzLjI3LDQuOTgsNC45MSwxMi4xMSw0LjkxLDIxLjR2NTMuNmgxMi45NnYtNDguODhjMC00LjMyLjQ2LTguNDcsMS4zNy0xMi40Ny45MS0zLjk5LDIuMzktNy41Niw0LjQyLTEwLjcsMi4wMy0zLjE0LDQuNjgtNS42Niw3Ljk1LTcuNTYsMy4yNy0xLjksNy4zMy0yLjg1LDEyLjE3LTIuODUsOC45LDAsMTQuOTgsMi40OSwxOC4yNiw3LjQ2LDMuMjcsNC45OCw0LjkxLDEyLjExLDQuOTEsMjEuNHY1My42aDEyLjk2di01OC4zMWMwLTExLjUxLTIuODItMjAuMzgtOC40NC0yNi42LTUuNjMtNi4yMS0xNC4zMy05LjMzLTI2LjExLTkuMzMtNi4xNSwwLTEyLjA3LDEuNy0xNy43Nyw1LjExLTUuNywzLjQxLTkuODUsOC4wNS0xMi40NywxMy45NC0xLjU3LTMuOTMtMy41LTcuMTMtNS43OS05LjYyLTIuMjktMi40OC00Ljc1LTQuNDItNy4zNi01Ljc5LTIuNjItMS4zNy01LjM0LTIuMzItOC4xNS0yLjg1LTIuODItLjUyLTUuNDctLjc5LTcuOTUtLjc5LTUuNSwwLTExLjAzLDEuMzctMTYuNTksNC4xMi01LjU2LDIuNzUtOS45MSw2LjgxLTEzLjA1LDEyLjE3aC0uMzl2LTEzLjk0aC0xMy45NGMuMjYsMy40MS40OSw2LjgxLjY5LDEwLjIxLjIsMy40MS4zLDYuODEuMywxMC4yMXY3MS40NlpNMTY0OS45Myw4NTQuMDRoLTI2LjV2LTI1LjkxaC0xMi45NnYyNS45MWgtMTkuNDR2MTEuNzhoMTkuNDR2NTcuOTJjMCw1LjEuNzIsOS4yMywyLjE2LDEyLjM3LDEuNDQsMy4xNCwzLjI3LDUuNjMsNS41LDcuNDYsMi4yMiwxLjgzLDQuNjgsMy4wOCw3LjM2LDMuNzMsMi42OC42NSw1LjI3Ljk4LDcuNzYuOTgsNi44LDAsMTIuNjMtMS4xMSwxNy40Ny0zLjM0bC0uNTktMTEuOThjLTEuOTYsMS4wNS00LjEyLDEuOS02LjQ4LDIuNTUtMi4zNi42Ni00LjY1Ljk4LTYuODcuOTgtMS45NiwwLTMuNzctLjIzLTUuNC0uNjktMS42NC0uNDUtMy4wNC0xLjI3LTQuMjItMi40NS0xLjE4LTEuMTgtMi4wOS0yLjg1LTIuNzUtNS4wMS0uNjYtMi4xNi0uOTgtNC45NC0uOTgtOC4zNHYtNTQuMThoMjYuNXYtMTEuNzhaTTE1NzkuMTYsODY4LjE3Yy0zLjAxLTYuMDItNy4yNy0xMC4yNy0xMi43Ni0xMi43Ni01LjUtMi40OS0xMS40NS0zLjczLTE3Ljg2LTMuNzMtNC4zMiwwLTguNTEuNTYtMTIuNTYsMS42Ny00LjA2LDEuMTItNy42OSwyLjc4LTEwLjksNS4wMS0zLjIxLDIuMjMtNS43Niw1LjEtNy42Niw4LjY0LTEuOSwzLjUzLTIuODUsNy42Ni0yLjg1LDEyLjM3LDAsNC4zMi45MSw3Ljk1LDIuNzUsMTAuODksMS44MywyLjk1LDQuMDIsNS4zNCw2LjU4LDcuMTcsMi41NSwxLjgzLDUuMTcsMy4yMSw3Ljg1LDQuMTIsMi42OC45Miw0LjgxLDEuNTcsNi4zOCwxLjk2bDEyLjU2LDIuOTVjNC44NCwxLjE4LDguOTYsMi43OCwxMi4zNyw0LjgxLDMuNCwyLjAzLDUuMTEsNS4zNCw1LjExLDkuOTIsMCwyLjYyLS42Miw0LjkxLTEuODcsNi44Ny0xLjI1LDEuOTYtMi44OCwzLjU3LTQuOTEsNC44MS0yLjAzLDEuMjUtNC4zNSwyLjE2LTYuOTcsMi43NS0yLjYyLjU5LTUuMjQuODgtNy44NS44OC01LjUsMC0xMC4yNC0xLjI0LTE0LjIzLTMuNzMtMy45OS0yLjQ5LTcuMy01LjgyLTkuOTItMTAuMDFsLTExLjE5LDcuNjVjNC4zMiw2LjU1LDkuNTIsMTEuMTYsMTUuNjEsMTMuODQsNi4wOSwyLjY4LDEyLjY2LDQuMDIsMTkuNzMsNC4wMiw0LjQ1LDAsOC44My0uNTIsMTMuMTUtMS41Nyw0LjMyLTEuMDQsOC4xNS0yLjcxLDExLjQ5LTUuMDEsMy4zNC0yLjI5LDYuMDItNS4yMyw4LjA1LTguODMsMi4wMy0zLjYsMy4wNC03Ljg4LDMuMDQtMTIuODYsMC02LjU0LTIuMTMtMTIuMDEtNi4zOC0xNi4zOS00LjI2LTQuMzgtOS41OS03LjI5LTE2LTguNzRsLTEzLjE1LTMuMTRjLTYuMDItMS40NC0xMC41NC0zLjE0LTEzLjU1LTUuMS0zLjAxLTEuOTYtNC41Mi01LjExLTQuNTItOS40MiwwLTIuNDkuNTYtNC41OCwxLjY3LTYuMjgsMS4xMS0xLjcsMi41OC0zLjExLDQuNDItNC4yMiwxLjgzLTEuMTEsMy44OS0xLjkzLDYuMTgtMi40NSwyLjI5LS41Miw0LjU1LS43OSw2Ljc3LS43OSw0LjcxLDAsOC43LDEuMTEsMTEuOTcsMy4zNCwzLjI3LDIuMjMsNS44OSw1LjI0LDcuODUsOS4wM2wxMS41OC03LjY2Wk0xNDk5LjMyLDkwMy41MXYtNS44OWMwLTYuMjgtLjk4LTEyLjItMi45NS0xNy43Ny0xLjk2LTUuNTYtNC44MS0xMC40LTguNTQtMTQuNTMtMy43My00LjEyLTguMzQtNy40My0xMy44NC05LjkyLTUuNS0yLjQ5LTExLjcyLTMuNzMtMTguNjUtMy43My02LjU1LDAtMTIuNjMsMS4yMS0xOC4yNiwzLjYzLTUuNjMsMi40Mi0xMC41NCw1Ljc5LTE0LjcyLDEwLjExLTQuMTksNC4zMi03LjQ2LDkuNDItOS44MSwxNS4zMS0yLjM2LDUuODktMy41NCwxMi4zMS0zLjU0LDE5LjI0czEuMjEsMTMuMzUsMy42MywxOS4yNGMyLjQyLDUuODksNS43MiwxMC45OSw5LjkxLDE1LjMxLDQuMTksNC4zMiw5LjE5LDcuNjksMTUuMDIsMTAuMTEsNS44MiwyLjQyLDEyLjE0LDMuNjMsMTguOTQsMy42Myw3LjU5LDAsMTQuNjktMS41LDIxLjMtNC41MSw2LjYxLTMuMDEsMTIuNjYtNy45OCwxOC4xNi0xNC45MmwtMTAuMDEtOC4yNGMtMi42Miw0LjE5LTYuNDUsNy44OS0xMS40OCwxMS4wOS01LjA0LDMuMjEtMTEuMDMsNC44MS0xNy45Niw0LjgxLTQuNTgsMC04Ljg0LS44NS0xMi43Ni0yLjU1LTMuOTMtMS43LTcuNC00LjAyLTEwLjQtNi45Ny0zLjAxLTIuOTUtNS40My02LjQ0LTcuMjYtMTAuNS0xLjgzLTQuMDYtMi45NS04LjM3LTMuMzQtMTIuOTZoNzYuNTZaTTE0MjMuMTQsODkyLjkxYzAtMy43OS44OC03LjQ2LDIuNjUtMTAuOTksMS43Ny0zLjU0LDQuMTItNi42OCw3LjA3LTkuNDIsMi45NC0yLjc1LDYuMzgtNC45NCwxMC4zMS02LjU4LDMuOTMtMS42Myw3Ljk4LTIuNDUsMTIuMTctMi40NSw5LjQyLDAsMTYuNzUsMi43MiwyMS45OSw4LjE1LDUuMjMsNS40Myw3Ljg1LDEyLjUzLDcuODUsMjEuM2gtNjIuMDRaTTE0MDMuOTUsODU0LjA0aC0xNC43MmwtMjkuMjUsNzcuMzVoLS4zOWwtMjkuNDUtNzcuMzVoLTE1LjMxbDM3LjMsOTEuODhoMTQuNTNsMzcuMy05MS44OFpNMTIyMy45OCw4NTQuMDRjLjI2LDMuNDEuNDksNywuNjksMTAuOC4yLDMuOC4yOSw2Ljk0LjI5LDkuNDJ2NzEuNjZoMTIuOTZ2LTQ3LjEyYzAtOC4zNywxLjMxLTE0LjkyLDMuOTMtMTkuNjMsMi42MS00LjcxLDUuNTktOC4yNCw4LjkzLTEwLjYsMy4zNC0yLjM2LDYuNTEtMy43OSw5LjUyLTQuMzIsMy4wMS0uNTIsNC44NC0uNzksNS41LS43OSw5LjU1LDAsMTYuMSwyLjcyLDE5LjYzLDguMTUsMy41NCw1LjQzLDUuMywxMy4yNSw1LjMsMjMuNDZ2NTAuODVoMTIuOTZ2LTU4LjMxYzAtMTEuNTEtMi44Mi0yMC4zOC04LjQ0LTI2LjYtNS42My02LjIxLTE0LjMzLTkuMzMtMjYuMTEtOS4zMy0zLjAxLDAtNi4wNi40My05LjEzLDEuMjgtMy4wOC44NS01Ljk5LDIuMDMtOC43NCwzLjUzLTIuNzUsMS41MS01LjI0LDMuMzEtNy40Niw1LjQtMi4yMywyLjEtNC4wNiw0LjM5LTUuNSw2Ljg3aC0uMzljMC0yLjQ5LS4wMy00Ljk0LS4xLTcuMzYtLjA3LTIuNDItLjIzLTQuODgtLjQ5LTcuMzZoLTEzLjM1Wk0xMTk4LjI4LDg1NC4wNGgtMTIuOTZ2OTEuODhoMTIuOTZ2LTkxLjg4Wk0xMTk4LjI4LDgxMS45M2MtMS45Ni0xLjc3LTQuMTItMi42NS02LjQ4LTIuNjVzLTQuNTIuODgtNi40OCwyLjY1Yy0xLjk2LDEuNzctMi45NSw0LjAyLTIuOTUsNi43N3MuOTgsNS4wMSwyLjk1LDYuNzdjMS45NiwxLjc3LDQuMTIsMi42NSw2LjQ4LDIuNjVzNC41Mi0uODgsNi40OC0yLjY1YzEuOTYtMS43NywyLjk1LTQuMDIsMi45NS02Ljc3cy0uOTgtNS4wMS0yLjk1LTYuNzdNMTEwNC44Myw4NzAuNzNoLTE1LjlsLTE5LjA1LDMyLjk4LTMyLTMyLjk4YzMuNTMtMS44Myw3LjEzLTMuODksMTAuOC02LjE4LDMuNjYtMi4yOSw2Ljk3LTQuOTEsOS45Mi03Ljg1LDIuOTUtMi45NSw1LjMzLTYuMjIsNy4xNy05LjgyLDEuODMtMy42LDIuNzUtNy42OSwyLjc1LTEyLjI3LDAtNS4xMS0uODktOS41OS0yLjY1LTEzLjQ1LTEuNzctMy44Ni00LjE5LTcuMS03LjI2LTkuNzItMy4wOC0yLjYyLTYuNjQtNC42MS0xMC43LTUuOTktNC4wNi0xLjM3LTguMzgtMi4wNi0xMi45Ni0yLjA2LTQuOTgsMC05LjU2LjcyLTEzLjc0LDIuMTYtNC4xOSwxLjQ0LTcuODUsMy41Ny0xMC45OSw2LjM4LTMuMTQsMi44Mi01LjU5LDYuMjUtNy4zNiwxMC4zMS0xLjc3LDQuMDYtMi42NSw4LjctMi42NSwxMy45NCwwLDYuNDEsMS42NywxMi4zNCw1LjAxLDE3Ljc3LDMuMzQsNS40Myw3LjEsMTAuMzgsMTEuMjksMTQuODItNC4xOSwxLjk2LTguMTgsNC4yNS0xMS45Nyw2Ljg3LTMuOCwyLjYyLTcuMTcsNS41OS0xMC4xMSw4LjkzLTIuOTUsMy4zNC01LjI3LDcuMS02Ljk3LDExLjI5LTEuNyw0LjE5LTIuNTUsOC44My0yLjU1LDEzLjk0LDAsNi4yOCwxLjE4LDExLjg4LDMuNTQsMTYuNzksMi4zNiw0LjkxLDUuNTMsOS4wNiw5LjUyLDEyLjQ3LDMuOTksMy40LDguNjQsNS45OSwxMy45NCw3Ljc1LDUuMywxLjc3LDEwLjgzLDIuNjUsMTYuNTksMi42NSw5LjQyLDAsMTcuNC0yLjEzLDIzLjk1LTYuMzgsNi41NC00LjI1LDEyLjY5LTEwLjExLDE4LjQ2LTE3LjU3bDE5LjYzLDIwLjQyaDIwLjAybC0zMS4yMi0zMi4yLDI1LjUyLTQyLjk5Wk0xMDUxLjkyLDg0NC4wM2MtMS42NCwyLjc1LTMuNzMsNS4xNy02LjI4LDcuMjYtMi41NSwyLjA5LTUuMzMsMy45Ni04LjM0LDUuNTktMy4wMSwxLjY0LTUuODIsMy4yNC04LjQ0LDQuODEtMS4xOC0uOTEtMi41OS0yLjMyLTQuMjItNC4yMi0xLjY0LTEuOS0zLjIxLTMuOTYtNC43MS02LjE4LTEuNTEtMi4yMi0yLjgyLTQuNjEtMy45My03LjE3LTEuMTEtMi41NS0xLjY3LTUuMDEtMS42Ny03LjM2LDAtNi4yOCwxLjk5LTExLjI1LDUuOTktMTQuOTIsMy45OS0zLjY2LDguOTMtNS41LDE0LjgyLTUuNSw1LjM2LDAsOS45MiwxLjY3LDEzLjY0LDUuMDEsMy43MywzLjM0LDUuNiw3Ljc2LDUuNiwxMy4yNSwwLDMuNTMtLjgyLDYuNjctMi40Niw5LjQyTTEwNjIuMDMsOTE2LjA3Yy0yLjIzLDIuODgtNC41MSw1LjU3LTYuODcsOC4wNS0yLjM2LDIuNDktNC44OCw0LjY1LTcuNTYsNi40OC0yLjY4LDEuODMtNS41NywzLjI3LTguNjQsNC4zMi0zLjA4LDEuMDUtNi41MSwxLjU3LTEwLjMxLDEuNTdzLTcuNC0uNjUtMTAuOC0xLjk2Yy0zLjQxLTEuMzEtNi40MS0zLjExLTkuMDMtNS40LTIuNjItMi4yOS00LjcxLTUuMDctNi4yOC04LjM0LTEuNTctMy4yNy0yLjM2LTYuODctMi4zNi0xMC44LDAtMy41NC40NS02Ljc0LDEuMzctOS42Mi45MS0yLjg4LDIuMzYtNS41OSw0LjMyLTguMTUsMS45Ni0yLjU1LDQuNTUtNC45Nyw3Ljc2LTcuMjYsMy4yLTIuMjksNy4xLTQuNzQsMTEuNjgtNy4zNmwzNi43MSwzOC40OFpNODQ1LjY5LDg1NC4wNGgtMTYuM2wzNy42OSw5My4wNi02LjY3LDE3LjY3Yy0xLjk2LDUuMjMtNC4yNSw5LjI5LTYuODcsMTIuMTctMi42MiwyLjg4LTYuMjIsNC4zMi0xMC44LDQuMzItMy44LDAtNy4wNy0uNzItOS44MS0yLjE2bC0xLjM3LDEyLjU2YzEuOTYuNjYsMy45NiwxLjA1LDUuOTksMS4xOCwyLjAzLjEzLDQuMDIuMiw1Ljk5LjIsNy45OCwwLDE0LjEtMi4wOSwxOC4zNi02LjI4LDQuMjUtNC4xOSw3Ljc2LTkuODEsMTAuNS0xNi44OGw0NS45NC0xMTUuODNoLTE1LjcxbC0yOC4wNyw3NS45OC0yOC44Ni03NS45OFpNNzcwLjg1LDk0NS45MmgxMi45NnYtNTEuODNjMC0zLjE0LjU2LTYuNDEsMS42Ny05LjgxLDEuMTEtMy40LDIuODQtNi41OCw1LjItOS41MiwyLjM2LTIuOTUsNS4zLTUuMzYsOC44NC03LjI3LDMuNTMtMS45LDcuNzgtMi44NSwxMi43Ni0yLjg1LDMuMjcsMCw1Ljc2LjMzLDcuNDYuOThsMi41NS0xMi43NmMtMi43NS0uNzktNS45Ni0xLjE4LTkuNjItMS4xOC00LjA2LDAtNy42OS41Ni0xMC44OSwxLjY3LTMuMjEsMS4xMi02LjAyLDIuNTktOC40NCw0LjQyLTIuNDIsMS44My00LjQ4LDMuODktNi4xOCw2LjE4LTEuNywyLjI5LTMuMDEsNC42OC0zLjkzLDcuMTdoLS4zOXYtMTcuMDhoLTEyLjc2Yy4xMyw2LjY4LjMsMTIuMTEuNDksMTYuMy4yLDQuMTkuMjksOC4zMS4yOSwxMi4zN3Y2My4yMVpNNzQ2Ljg2LDg4MC43NGMtMi40Mi01Ljg5LTUuNzktMTAuOTktMTAuMTEtMTUuMzEtNC4zMi00LjMyLTkuNDYtNy42OS0xNS40MS0xMC4xMS01Ljk2LTIuNDItMTIuNTMtMy42My0xOS43My0zLjYzcy0xMy41OCwxLjIxLTE5LjUzLDMuNjNjLTUuOTYsMi40Mi0xMS4wOSw1Ljc5LTE1LjQxLDEwLjExLTQuMzIsNC4zMi03LjY5LDkuNDItMTAuMTEsMTUuMzEtMi40Miw1Ljg5LTMuNjMsMTIuMzEtMy42MywxOS4yNHMxLjIxLDEzLjM1LDMuNjMsMTkuMjRjMi40Miw1Ljg5LDUuNzksMTAuOTksMTAuMTEsMTUuMzEsNC4zMiw0LjMyLDkuNDUsNy42OSwxNS40MSwxMC4xMSw1Ljk1LDIuNDIsMTIuNDcsMy42MywxOS41MywzLjYzczEzLjc3LTEuMjEsMTkuNzMtMy42M2M1Ljk1LTIuNDIsMTEuMDktNS43OSwxNS40MS0xMC4xMSw0LjMyLTQuMzIsNy42OS05LjQyLDEwLjExLTE1LjMxLDIuNDItNS44OSwzLjYzLTEyLjMsMy42My0xOS4yNHMtMS4yMS0xMy4zNS0zLjYzLTE5LjI0TTczMy45MSw5MTQuMzFjLTEuNjQsNC40NS0zLjk2LDguMzEtNi45NywxMS41OC0zLjAxLDMuMjctNi42NCw1Ljg2LTEwLjg5LDcuNzYtNC4yNiwxLjktOS4wNywyLjg1LTE0LjQzLDIuODVzLTEwLjE4LS45NS0xNC40My0yLjg1Yy00LjI1LTEuOS03Ljg1LTQuNDgtMTAuOC03Ljc2LTIuOTUtMy4yNy01LjI0LTcuMTMtNi44Ny0xMS41OC0xLjY0LTQuNDUtMi40NS05LjIzLTIuNDUtMTQuMzNzLjgyLTkuODgsMi40NS0xNC4zM2MxLjY0LTQuNDUsMy45My04LjMxLDYuODctMTEuNTgsMi45NS0zLjI3LDYuNTQtNS44NiwxMC44LTcuNzYsNC4yNS0xLjksOS4wNi0yLjg1LDE0LjQzLTIuODVzMTAuMTcuOTUsMTQuNDMsMi44NWM0LjI1LDEuOSw3Ljg4LDQuNDgsMTAuODksNy43NiwzLjAxLDMuMjcsNS4zMyw3LjEzLDYuOTcsMTEuNTgsMS42NCw0LjQ1LDIuNDUsOS4yMywyLjQ1LDE0LjMzcy0uODIsOS44OC0yLjQ1LDE0LjMzTTYzNy4wNiw4NjguMTdjLTMuMDEtNi4wMi03LjI2LTEwLjI3LTEyLjc2LTEyLjc2LTUuNS0yLjQ5LTExLjQ1LTMuNzMtMTcuODctMy43My00LjMyLDAtOC41MS41Ni0xMi41NiwxLjY3LTQuMDYsMS4xMi03LjY5LDIuNzgtMTAuOSw1LjAxLTMuMjEsMi4yMy01Ljc2LDUuMS03LjY1LDguNjQtMS45LDMuNTMtMi44NSw3LjY2LTIuODUsMTIuMzcsMCw0LjMyLjkxLDcuOTUsMi43NSwxMC44OSwxLjgzLDIuOTUsNC4wMyw1LjM0LDYuNTgsNy4xNywyLjU1LDEuODMsNS4xNywzLjIxLDcuODUsNC4xMiwyLjY4LjkyLDQuODEsMS41Nyw2LjM4LDEuOTZsMTIuNTYsMi45NWM0Ljg0LDEuMTgsOC45NiwyLjc4LDEyLjM3LDQuODEsMy40LDIuMDMsNS4xLDUuMzQsNS4xLDkuOTIsMCwyLjYyLS42Miw0LjkxLTEuODYsNi44Ny0xLjI1LDEuOTYtMi44OCwzLjU3LTQuOTEsNC44MS0yLjAzLDEuMjUtNC4zNSwyLjE2LTYuOTcsMi43NS0yLjYyLjU5LTUuMjQuODgtNy44NS44OC01LjUsMC0xMC4yNC0xLjI0LTE0LjIzLTMuNzMtNC0yLjQ5LTcuMy01LjgyLTkuOTItMTAuMDFsLTExLjE5LDcuNjVjNC4zMiw2LjU1LDkuNTIsMTEuMTYsMTUuNjEsMTMuODQsNi4wOCwyLjY4LDEyLjY2LDQuMDIsMTkuNzMsNC4wMiw0LjQ1LDAsOC44My0uNTIsMTMuMTUtMS41Nyw0LjMyLTEuMDQsOC4xNS0yLjcxLDExLjQ5LTUuMDEsMy4zNC0yLjI5LDYuMDItNS4yMyw4LjA1LTguODMsMi4wMy0zLjYsMy4wNC03Ljg4LDMuMDQtMTIuODYsMC02LjU0LTIuMTMtMTIuMDEtNi4zOC0xNi4zOS00LjI1LTQuMzgtOS41OS03LjI5LTE2LTguNzRsLTEzLjE1LTMuMTRjLTYuMDItMS40NC0xMC41NC0zLjE0LTEzLjU1LTUuMS0zLjAxLTEuOTYtNC41Mi01LjExLTQuNTItOS40MiwwLTIuNDkuNTYtNC41OCwxLjY3LTYuMjgsMS4xMS0xLjcsMi41OC0zLjExLDQuNDItNC4yMiwxLjgzLTEuMTEsMy44OS0xLjkzLDYuMTgtMi40NSwyLjI5LS41Miw0LjU1LS43OSw2Ljc3LS43OSw0LjcxLDAsOC43LDEuMTEsMTEuOTgsMy4zNCwzLjI3LDIuMjMsNS44OSw1LjI0LDcuODUsOS4wM2wxMS41OC03LjY2Wk01NTAuMzMsODU0LjA0aC0xMi45NnY5MS44OGgxMi45NnYtOTEuODhaTTU1MC4zMyw4MTEuOTNjLTEuOTYtMS43Ny00LjEyLTIuNjUtNi40OC0yLjY1cy00LjUyLjg4LTYuNDgsMi42NWMtMS45NiwxLjc3LTIuOTUsNC4wMi0yLjk1LDYuNzdzLjk4LDUuMDEsMi45NSw2Ljc3YzEuOTYsMS43Nyw0LjEyLDIuNjUsNi40OCwyLjY1czQuNTItLjg4LDYuNDgtMi42NWMxLjk2LTEuNzcsMi45NS00LjAyLDIuOTUtNi43N3MtLjk4LTUuMDEtMi45NS02Ljc3TTUyMS44NCw4NTQuMDRoLTE0LjcybC0yOS4yNSw3Ny4zNWgtLjM5bC0yOS40NS03Ny4zNWgtMTUuMzFsMzcuMyw5MS44OGgxNC41M2wzNy4zLTkxLjg4Wk00MTguNTIsNzk3LjVoLTEyLjk2djcxLjg2aC0uMzljLTIuMS0zLjE0LTQuNTgtNS44Mi03LjQ2LTguMDUtMi44OC0yLjIzLTUuODktNC4wNi05LjAzLTUuNS0zLjE0LTEuNDQtNi4zOC0yLjQ4LTkuNzItMy4xNC0zLjM0LS42Ni02LjUxLS45OC05LjUyLS45OC03LjIsMC0xMy43OCwxLjIxLTE5LjczLDMuNjMtNS45NiwyLjQyLTExLjA5LDUuNzktMTUuNDEsMTAuMTEtNC4zMiw0LjMyLTcuNjksOS40Mi0xMC4xMSwxNS4zMS0yLjQyLDUuODktMy42MywxMi4zMS0zLjYzLDE5LjI0czEuMjEsMTMuMzUsMy42MywxOS4yNGMyLjQyLDUuODksNS43OSwxMC45OSwxMC4xMSwxNS4zMSw0LjMyLDQuMzIsOS40NSw3LjY5LDE1LjQxLDEwLjExLDUuOTUsMi40MiwxMi41MywzLjYzLDE5LjczLDMuNjMsMy4wMSwwLDYuMTgtLjMzLDkuNTItLjk4LDMuMzQtLjY2LDYuNTgtMS43LDkuNzItMy4xNCwzLjE0LTEuNDQsNi4xNS0zLjI3LDkuMDMtNS41LDIuODgtMi4yMiw1LjM2LTQuOTEsNy40Ni04LjA1aC4zOXYxNS4zMWgxMi45NnYtMTQ4LjQyWk0zMzcuMTQsODg1LjY1YzEuNjQtNC40NSwzLjk2LTguMzEsNi45Ny0xMS41OCwzLjAxLTMuMjcsNi42NC01Ljg2LDEwLjktNy43Niw0LjI1LTEuOSw5LjA2LTIuODUsMTQuNDMtMi44NXMxMC4xMS45NSwxNC42MywyLjg1YzQuNTIsMS45LDguNDEsNC40OCwxMS42OCw3Ljc2LDMuMjcsMy4yNyw1LjgyLDcuMTMsNy42NiwxMS41OCwxLjgzLDQuNDUsMi43NSw5LjIzLDIuNzUsMTQuMzNzLS45Miw5Ljg4LTIuNzUsMTQuMzNjLTEuODMsNC40NS00LjM5LDguMzEtNy42NiwxMS41OC0zLjI3LDMuMjctNy4xNyw1Ljg2LTExLjY4LDcuNzYtNC41MiwxLjktOS4zOSwyLjg1LTE0LjYzLDIuODVzLTEwLjE4LS45NS0xNC40My0yLjg1Yy00LjI1LTEuOS03Ljg5LTQuNDgtMTAuOS03Ljc2LTMuMDEtMy4yNy01LjMzLTcuMTMtNi45Ny0xMS41OC0xLjY0LTQuNDUtMi40NS05LjIzLTIuNDUtMTQuMzNzLjgyLTkuODgsMi40NS0xNC4zM00yODEuNjksODg5LjU3Yy01LjUsMC0xMS41NS4yNi0xOC4xNi43OS02LjYxLjUyLTEyLjgzLDEuODMtMTguNjUsMy45My01LjgyLDIuMDktMTAuNjcsNS4yNy0xNC41Myw5LjUyLTMuODYsNC4yNS01Ljc5LDEwLjExLTUuNzksMTcuNTcsMCw0LjQ1Ljg4LDguMzQsMi42NSwxMS42OCwxLjc3LDMuMzQsNC4xMiw2LjE1LDcuMDcsOC40NCwyLjk1LDIuMjksNi4zMSwzLjk5LDEwLjExLDUuMSwzLjc5LDEuMTEsNy43MiwxLjY3LDExLjc4LDEuNjcsNy40NiwwLDEzLjc3LTEuMzQsMTguOTQtNC4wMiw1LjE3LTIuNjgsOS42NS03LjEsMTMuNDUtMTMuMjVoLjM5YzAsMi40OS4xLDUuMDQuMjksNy42Ni4yLDIuNjIuNDksNS4wNC44OCw3LjI2aDEyLjU2Yy0uMzktMi40OC0uNzUtNS42Ni0xLjA4LTkuNTItLjMzLTMuODYtLjQ5LTcuNTYtLjQ5LTExLjA5di00MS4wM2MwLTUuNjMtLjkxLTEwLjQ3LTIuNzUtMTQuNTMtMS44My00LjA1LTQuMjUtNy40Mi03LjI2LTEwLjExLTMuMDEtMi42OC02LjU4LTQuNjgtMTAuNy01Ljk5LTQuMTItMS4zMS04LjQxLTEuOTYtMTIuODYtMS45Ni0xNy4yOCwwLTMwLjIzLDQuNDUtMzguODcsMTMuMzVsNy44NSw5LjIzYzcuOTgtNy4yLDE3LjM0LTEwLjgsMjguMDctMTAuOCwxNS43MSwwLDIzLjU2LDcuOTIsMjMuNTYsMjMuNzZ2Mi4zNmgtNi40OFpNMjg4LjE2LDkwMC4xN3Y2LjY4YzAsNC4wNi0uNTYsNy44OC0xLjY3LDExLjQ4LTEuMTEsMy42LTIuODUsNi43NC01LjIsOS40Mi0yLjM2LDIuNjgtNS4yNyw0LjgxLTguNzQsNi4zOC0zLjQ3LDEuNTctNy41NiwyLjM2LTEyLjI3LDIuMzYtMi42MiwwLTUuMi0uMjktNy43NS0uODgtMi41NS0uNTktNC44OC0xLjU3LTYuOTctMi45NS0yLjEtMS4zNy0zLjc3LTMuMTQtNS4wMS01LjMtMS4yNS0yLjE2LTEuODYtNC43NC0xLjg2LTcuNzYsMC00LjU4LDEuNi04LjE4LDQuODEtMTAuOCwzLjItMi42Miw3LjA3LTQuNTUsMTEuNTgtNS43OSw0LjUyLTEuMjQsOS4yMy0yLjAzLDE0LjE0LTIuMzYsNC45MS0uMzMsOS0uNDksMTIuMjctLjQ5aDYuNjhaIi8+CiAgPC9zdmc+" alt="Tenet Advisory &amp; Investments">
   </div>
   <div class="tool-label">The Compounder Index</div>
 </div>
-<div class="progress-wrap hidden" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
+<div class="progress-wrap hidden" id="progressWrap">
+  <div class="progress-label" id="progressLabel">Progress: 0%</div>
+  <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+</div>
 
 <main class="container">
 
   <!-- INTRO -->
   <section class="card" id="screen-intro">
+    <div class="resume-bar hidden" id="resumeBar">
+      <div class="resume-text" id="resumeText"></div>
+      <div class="resume-actions">
+        <button class="btn" id="resumeBtn">Pick up where you left off</button>
+        <button class="btn btn-secondary" id="discardBtn">Start over</button>
+      </div>
+    </div>
     <h1>The Compounder Index</h1>
-    <div class="subhead">Tenet's AI Readiness Diagnostic</div>
-    <p class="lede">Most organisations have bought AI tools. Few have built the strategy, governance, and capability to get value from them. This diagnostic measures both: how ready your organisation is, and how well your people actually use what you have given them.</p>
-    <p>Answers are scored against behaviour, not opinion. Each question describes four real states of practice, from absent to advanced, and you pick the one closest to your reality. There is no reward for picking the impressive-sounding answer, only for picking the true one.</p>
+    <div class="subhead">Tenet's AI readiness diagnostic</div>
+    <p class="lede">Buying AI tools is the easy part. Turning them into real momentum, where your strategy, safeguards, and everyday habits actually reinforce one another, is where the hard work begins.</p>
+    <p>We call this The Compounder Index because AI value doesn't arrive in a single, dramatic leap. It compounds. Small, thoughtful shifts in how your team works day-to-day stack up over time, gradually transforming basic skills and capability into an undeniable organisational advantage. This diagnostic is designed to show you where that momentum is building, and where things might be getting stuck.</p>
+    <p>Think of this as a mirror, not an exam. There are no right grades or bonus points for picking the option that sounds best on paper; the only useful answer is the honest one. Across the questions, you'll simply choose the scenario that best reflects what daily life actually looks like across your teams today.</p>
+    <p>If you run into an area you genuinely aren't sure about, choosing "I don't know" is completely fine. In fact, uncovering those blind spots is half the point. Take your time, be candid, and let's see where you stand.</p>
 
     <h2>Choose your scope</h2>
     <div class="scope-grid" id="scopeGrid">
@@ -367,13 +477,27 @@
     <div class="field-row">
       <div>
         <label class="field-label" for="fldName">Name (optional)</label>
-        <input type="text" id="fldName" placeholder="Not stored or sent anywhere">
+        <input type="text" id="fldName" placeholder="Saved with your answers">
       </div>
       <div>
         <label class="field-label" for="fldCompany">Organisation (optional)</label>
-        <input type="text" id="fldCompany" placeholder="Shown on your results only">
+        <input type="text" id="fldCompany" placeholder="Saved with your answers">
       </div>
     </div>
+    <div class="field-row field-row-single">
+      <div>
+        <label class="field-label" for="fldSeniority">Your level</label>
+        <select id="fldSeniority">
+          <option value="">Select one</option>
+          <option value="executive">Executive</option>
+          <option value="senior_leader">Senior leader</option>
+          <option value="manager">Manager</option>
+          <option value="individual_contributor">Individual contributor</option>
+          <option value="prefer_not_to_say">Prefer not to say</option>
+        </select>
+      </div>
+    </div>
+    <p class="field-note">Your name and organisation are saved with your answers to support a deeper understanding of your organisation's AI readiness. Individual data will not be shared with anyone outside the Tenet project team.</p>
 
     <div class="btn-row">
       <div></div>
@@ -384,7 +508,7 @@
 
     <details>
       <summary>About the methodology</summary>
-      <p style="margin-top:12px;">Every dimension is scored from four questions, each with four answers describing increasing maturity. Scores are normalised to a scale of 0 to 100 and mapped to four levels: Bystander, Adopter, Integrator, Compounder. Where both tiers are completed, the combined score weights organisational readiness at 60 per cent and individual proficiency at 40 per cent, because individual skill can only compound where the organisation has built the foundation for it to land.</p>
+      <p style="margin-top:12px;">Every dimension is scored from four questions, each with four answers describing increasing maturity. Scores are normalised to a scale of 0 to 100 and mapped to four levels: Emerging, Adopter, Integrator, Compounder. Where both tiers are completed, the combined score weights organisational readiness at 60 per cent and individual proficiency at 40 per cent, because individual skill can only compound where the organisation has built the foundation for it to land.</p>
       <div class="dim-list" id="methodologyDims"></div>
     </details>
   </section>
@@ -395,7 +519,9 @@
     <div class="q-dim" id="qDim">Strategy &amp; Ambition</div>
     <div class="q-blurb" id="qBlurb"></div>
     <div class="q-text" id="qText">Question text goes here</div>
+    <div class="q-helper hidden" id="qHelper"></div>
     <div class="options" id="qOptions"></div>
+    <div class="dk-wrap hidden" id="qDontKnow"><button type="button" class="dk-option" id="dkBtn">I don't know</button></div>
     <div class="btn-row">
       <button class="btn btn-secondary" id="backBtn">Back</button>
       <div class="right-group">
@@ -404,9 +530,22 @@
     </div>
   </section>
 
+  <!-- BEFORE YOU FINISH (unscored) -->
+  <section class="card hidden" id="screen-final">
+    <h1>Before you finish</h1>
+    <p class="lede">Four short questions. These are reported, not scored.</p>
+    <div id="finalBody"></div>
+    <div class="btn-row">
+      <div></div>
+      <div class="right-group">
+        <button class="btn" id="finalBtn">See results</button>
+      </div>
+    </div>
+  </section>
+
   <!-- RESULTS -->
   <section class="card hidden" id="screen-results">
-    <h1 id="resultsHeading">Your results</h1>
+    <h1 id="resultsHeading">Your Compounder Index results</h1>
     <p id="resultsSubheading" class="lede"></p>
     <div id="resultsBody"></div>
     <div class="btn-row">
@@ -419,7 +558,7 @@
 
 </main>
 
-<footer>The Compounder Index is a Tenet Advisory &amp; Investments diagnostic. Results are indicative and intended to guide a conversation, not to replace one.</footer>
+<footer>The Compounder Index was created by the team at Tenet Advisory &amp; Investments. Your results aren't a verdict on you or your organisation's performance. They're simply a compass to spark an honest, useful conversation about what comes next.</footer>
 
 <script>
 (function(){
@@ -429,181 +568,189 @@
   var ORG_DIMS = [
     {
       id:'strategy', name:'Strategy & Ambition',
-      blurb:'Whether AI priorities are tied to real business outcomes.',
+      shortName:['Strategy','&amp; Ambition'],
+      blurb:'Whether AI priorities are tied to real business and customer outcomes.',
       questions:[
-        {text:"How would you describe your organisation's AI strategy today?", options:[
-          "We do not have one. AI use is happening informally, if at all.",
-          "We have general enthusiasm and some pilot projects, but no documented strategy or prioritised use cases.",
-          "We have a documented strategy with prioritised use cases, but it sits separately from the core business strategy.",
-          "AI priorities are integrated into our core business strategy and reviewed alongside our other strategic bets."
+        {text:"What has your organisation told you about its AI strategy?", options:[
+          "Nothing. I have not heard AI named as a priority.",
+          "There is enthusiasm and some pilots, but nothing written down.",
+          "There is a written strategy, but it sits apart from the business plan.",
+          "AI priorities are part of the business strategy and reviewed with it."
         ]},
-        {text:"Who decided what your organisation is doing with AI?", options:[
-          "Individual teams or employees are deciding for themselves, without central coordination.",
-          "A small group, usually IT or a single enthusiast, is driving decisions without broad buy-in.",
-          "Leadership has set direction, but business units define their own roadmaps within it.",
-          "Leadership and business units co-created the plan, with clear sequencing tied to the biggest value opportunities."
+        {text:"Has AI changed anything your customers or clients actually experience?", options:[
+          "No. Everything we do with AI is internal.",
+          "Not yet, but it has been raised as a possibility.",
+          "Yes, in one area, such as response times or service hours.",
+          "Yes, and it has changed what we sell or how we deliver it."
         ]},
-        {text:"How well can your leadership team describe where AI will change your competitive position in the next two years?", options:[
-          "We have not discussed this.",
-          "We have talked about it informally but have not tested any assumptions.",
-          "We have identified likely areas of impact but have not stress-tested them against competitors or customers.",
-          "We have a clear, tested view of where AI changes our cost base, our offer, or our customer experience, and we are acting on it."
+        {text:"Has leadership explained where AI will change how your organisation competes?", options:[
+          "No. I have not heard this discussed.",
+          "It has come up informally, without anything specific.",
+          "They have named likely areas of impact, without much detail.",
+          "They have set out a clear view, and we are acting on it."
         ]},
-        {text:"How is AI investment funded and reviewed?", options:[
-          "There is no dedicated budget. Spend happens ad hoc, often on individual licences.",
+        {text:"How is money for AI decided and reviewed?", dk:true, options:[
+          "There is no budget. Spend happens ad hoc, mostly on licences.",
           "There is a budget, but it was set once and is not reviewed against results.",
           "There is a budget with periodic review, but the criteria for reinvestment are unclear.",
-          "Investment is funded like a portfolio. We track value delivered per initiative and reallocate accordingly."
+          "It is funded like a portfolio, with value tracked and money moved."
         ]}
       ]
     },
     {
       id:'governance', name:'Leadership & Governance',
-      blurb:'Who owns AI decisions, risk, and approval.',
+      shortName:['Leadership','&amp; Governance'],
+      blurb:'Who owns AI decisions and risk, and what happens when it goes wrong.',
       questions:[
-        {text:"Who owns AI outcomes in your organisation?", options:[
-          "No one. It is everyone's job and therefore no one's.",
-          "A working group or committee exists but has no real authority or budget.",
-          "A named leader, such as a Head of AI, owns it part time, alongside other responsibilities.",
-          "A named leader owns it full time, with a mandate and budget that senior leadership actively backs."
+        {text:"Do you know who owns AI outcomes in your organisation?", options:[
+          "No, and I am not aware of anyone who does.",
+          "There is a group or committee, but it has no real authority.",
+          "A named leader owns it part time, alongside other work.",
+          "A named leader owns it full time, with budget and visible backing."
         ]},
-        {text:"What happens when someone wants to try a new AI tool or build an agent?", options:[
-          "They just do it, on whatever tool they can access.",
-          "There is an approved tool list, but no clear process for anything beyond it.",
-          "There is a lightweight approval process, though it is not consistently followed.",
-          "There is a fast, well-understood pathway to try, evaluate, and either scale or retire ideas."
+        {text:"What has to happen before a new AI tool can be used at work?", options:[
+          "Nothing. People use whatever they can get access to.",
+          "There is an approved list, but no route for anything else.",
+          "There is an approval and review process, applied inconsistently.",
+          "There is a fast, well-understood route to check, trial and decide."
         ]},
-        {text:"How mature is your governance of AI risk, covering data, bias, IP, and model errors?", options:[
-          "We have not defined our position on this.",
-          "We have informal guidance, mostly 'be careful,' with no enforcement.",
-          "We have a written policy, but training and enforcement are inconsistent.",
-          "We have a clear, understood policy with training, monitoring, and a way to escalate issues."
+        {text:"What rules has your organisation set about AI risk, covering data, bias, copyright and wrong answers?", options:[
+          "None that I know of, or none I have seen.",
+          "Informal guidance, mostly be careful, nothing written down.",
+          "There is a written policy, but training and enforcement vary.",
+          "A clear policy, with training, monitoring and an escalation route."
         ]},
-        {text:"How does your board or executive team engage with AI?", options:[
-          "It is not a standing item anywhere.",
-          "It comes up occasionally, usually in reaction to something.",
-          "It is a regular agenda item, but mostly for updates rather than decisions.",
-          "It is a regular agenda item with real decisions made: what to fund, what to stop, what to scale."
+        {text:"What happens when an AI tool gets something wrong at work?", options:[
+          "I do not know. I have not seen it come up.",
+          "The person fixes it quietly and moves on.",
+          "It gets raised informally, but nothing is recorded.",
+          "There is a way to report it, and people use it."
         ]}
       ]
     },
     {
       id:'data', name:'Data & Technology Foundation',
-      blurb:'Whether your data and systems can actually support AI use.',
+      shortName:['Data &amp; Technology','Foundation'],
+      blurb:'Whether your data, tools and vendor arrangements can support AI use.',
       questions:[
-        {text:"How accessible is your organisation's data to the people who need it for AI use cases?", options:[
-          "Data is fragmented, siloed, or hard to trust.",
-          "Some data is accessible, but pulling it together takes manual effort every time.",
-          "Core data sets are reasonably accessible, though quality and structure vary.",
-          "Data is clean, connected, and available in the formats AI tools need, with clear ownership."
+        {text:"When you need data or documents for a task, can you get to them?", options:[
+          "Rarely. Information is scattered or hard to trust.",
+          "Sometimes, but it takes manual work every time.",
+          "Usually, though quality and format vary.",
+          "Yes. It is clean, connected and ready to use."
         ]},
-        {text:"How would you describe your current AI tool stack?", options:[
-          "A mix of personal subscriptions and free tools, with no organisational visibility.",
-          "A small number of sanctioned tools, but access is inconsistent across the business.",
-          "A defined stack of sanctioned tools with broad access, though integration between them is limited.",
-          "A defined, integrated stack that connects to our core systems and data."
+        {text:"Which AI tools are you able to use for work?", options:[
+          "Only tools I have found or paid for myself.",
+          "A small number are approved, but access is patchy.",
+          "A defined set, widely available, but not joined up.",
+          "A defined set that connects to our systems and data."
         ]},
-        {text:"Can your systems support AI agents that take action, rather than only answer questions?", options:[
-          "We have not considered this.",
-          "We have looked into it but concluded our systems are not ready.",
-          "Some systems could support this with moderate work.",
-          "Our architecture already supports, or is being actively built to support, agentic workflows."
+        {text:"If a key AI tool doubled in price or changed how it works, what would happen?", options:[
+          "I do not know. We have not thought about it.",
+          "We would absorb it. There is no alternative in mind.",
+          "We have discussed alternatives but not tested any.",
+          "We know our options and could switch without major disruption."
         ]},
-        {text:"How do you handle security and privacy for AI tools?", options:[
-          "We have not formally assessed this.",
-          "We rely on default settings from vendors, without independent review.",
-          "We have reviewed our main tools, but new tools are not consistently assessed before use.",
-          "Every AI tool goes through a consistent security and privacy review before deployment."
+        {text:"Do you know whether the AI tools you use have been checked for security and privacy?", options:[
+          "No, and I have not thought about it.",
+          "I assume the vendor's default settings are fine.",
+          "The main tools were checked, but newer ones may not be.",
+          "Yes. Every tool is reviewed before it is used."
         ]}
       ]
     },
     {
       id:'culture', name:'Capability & Culture',
-      blurb:'Whether training and manager behaviour build real capability.',
+      shortName:['Capability','&amp; Culture'],
+      blurb:'Whether training, time and manager behaviour build real capability.',
       questions:[
-        {text:"What training has your workforce received on AI?", options:[
-          "None.",
-          "A one-off session, mostly about what not to do.",
-          "Ongoing training, but focused on safety and basic tool use rather than building or workflow design.",
-          "Ongoing, role-specific training that covers safe use and how to build workflows or agents."
+        {text:"What AI training have you been given at work?", options:[
+          "None that I have been offered or taken.",
+          "A single session, mostly about what not to do.",
+          "Ongoing training on safe use and basic tools.",
+          "Ongoing training for my role, covering how to build things."
         ]},
-        {text:"Do managers expect and support AI use in their teams?", options:[
-          "It has never come up.",
-          "Some managers encourage it informally, with no consistency.",
-          "Most managers encourage it, but do not hold their teams accountable for using it well.",
-          "Managers expect it, model it themselves, and it shows up in how people are evaluated."
+        {text:"Does your manager expect you to use AI in your work?", options:[
+          "It has never come up with my manager.",
+          "They are supportive if I raise it, but do not push.",
+          "They encourage it, but do not follow up on how it goes.",
+          "They expect it, use it themselves, and it shows in my review."
         ]},
-        {text:"How does your organisation feel about AI, from what you can tell?", options:[
-          "Anxious or resistant, more than curious.",
-          "Curious, but mostly among a small group of enthusiasts.",
-          "Broadly positive, though confidence is uneven across levels and teams.",
-          "Confident and engaged across the business, from the front line to the executive team."
+        {text:"Do you get time during work hours to learn and experiment with AI?", options:[
+          "No. Anything I learn is in my own time.",
+          "Only when work happens to be quiet.",
+          "Occasionally, when I ask for it.",
+          "Yes. Time for this is expected and protected."
         ]},
-        {text:"What happens to a good AI use case that a single employee discovers?", options:[
-          "Nothing. It stays with them.",
-          "It might get mentioned in a team meeting, but rarely spreads further.",
-          "There is a way to share it, but no one owns making sure it actually spreads.",
-          "There is a clear pathway to capture it, test it, and roll it out to everyone who could benefit."
+        {text:"If someone finds a better way of doing something with AI, what happens to it?", options:[
+          "Nothing. It stays with that person.",
+          "It might get mentioned in a team meeting.",
+          "There is a way to share it, but nobody drives it.",
+          "It gets captured, tested and rolled out to others."
         ]}
       ]
     },
     {
       id:'workflow', name:'Workflow & Operating Model',
+      shortName:['Workflow &amp; Operating','Model'],
       blurb:'Whether AI is embedded in how work actually gets done.',
       questions:[
-        {text:"Where does AI sit in your day-to-day operations?", options:[
-          "Outside the core workflow, used occasionally for individual tasks.",
-          "Used inside some workflows, but manually, one person at a time.",
-          "Embedded in several core workflows, with defined steps and owners.",
-          "Embedded across most core workflows, with agents handling parts of the process end to end."
+        {text:"What kinds of decisions is AI allowed to make without a person checking?", options:[
+          "I do not know. Nobody has set a boundary.",
+          "Nothing is automated, and no boundary has been discussed.",
+          "A boundary exists informally, understood by the people involved.",
+          "The boundary is written down, monitored, with a way to escalate."
         ]},
-        {text:"How would your business run differently tomorrow if every AI licence was cancelled tonight?", options:[
-          "No difference. It is not embedded anywhere critical.",
-          "A few individuals would be inconvenienced.",
-          "Some teams would need to change how they work, but the business would function.",
-          "Core processes would break. AI is now load-bearing infrastructure, not a nice-to-have."
+        {text:"If every AI licence was cancelled tonight, what would change tomorrow?", options:[
+          "Nothing would change in how we work.",
+          "A few people would be inconvenienced.",
+          "Some teams would change how they work, but we would cope.",
+          "Core processes would stop until we found another way."
         ]},
-        {text:"How are AI agents, meaning systems that act on your behalf rather than only respond, used today?", options:[
-          "Not at all.",
-          "We have tested one, in a low-stakes area.",
-          "We have one or two in production, with human oversight at key steps.",
-          "We have multiple agents in production, monitoring data and triggering actions, with clear escalation paths."
+        {text:"How are AI agents used in your organisation today?",
+         helper:"An agent takes action on your behalf, rather than only answering questions.",
+         options:[
+          "Not at all, as far as I know.",
+          "One has been tried in a low-stakes area.",
+          "One or two run in production, with people checking key steps.",
+          "Several run in production, with monitoring and clear escalation."
         ]},
-        {text:"How do new AI-enabled ways of working get built into standard operating procedures?", options:[
-          "They do not. Individuals just use AI on top of the old process.",
-          "Occasionally, when someone takes the initiative to document it.",
-          "There is a process for updating procedures, but it lags behind actual practice.",
-          "Procedures are actively redesigned around what AI now makes possible, not just patched."
+        {text:"When AI changes how a job gets done, does the written process get updated?", options:[
+          "No. People use AI on top of the old process.",
+          "Occasionally, if someone takes the initiative.",
+          "Yes, but the documents lag behind actual practice.",
+          "Processes are redesigned around what AI now makes possible."
         ]}
       ]
     },
     {
       id:'value', name:'Value & Measurement',
+      shortName:['Value','&amp; Measurement'],
       blurb:'Whether you can measure and reinvest based on results.',
       questions:[
-        {text:"How do you know if your AI investment is working?", options:[
-          "We do not track this.",
-          "We track usage, such as licences and logins, but not outcomes.",
-          "We track outcomes for some initiatives, but not consistently or against a baseline.",
-          "We track outcomes against a baseline for every material initiative, and can point to the numbers."
+        {text:"How does your organisation tell whether AI is working?", dk:true, options:[
+          "It does not track this.",
+          "It tracks usage, such as licences and logins.",
+          "It tracks outcomes for some work, without a baseline.",
+          "It tracks outcomes against a baseline for anything material."
         ]},
-        {text:"What is your best estimate of value delivered by AI so far?", options:[
-          "We could not put a number on it.",
-          "We have a rough sense but no confidence in it.",
-          "We have credible estimates for our top one or two use cases.",
-          "We have a credible, aggregated view of value delivered across initiatives, reviewed regularly."
+        {text:"Can your organisation put a number on the value AI has delivered?", dk:true, options:[
+          "No, and nobody has tried.",
+          "There is a rough sense, but no confidence in it.",
+          "Yes, for one or two pieces of work.",
+          "Yes, added up across initiatives and reviewed regularly."
         ]},
-        {text:"How do results from AI initiatives change what you fund next?", options:[
-          "They do not. Funding decisions are made independently of past results.",
-          "Occasionally, when something clearly fails or succeeds.",
-          "Most of the time, though the link is informal.",
-          "Always. We reinvest based on evidence, in a disciplined way."
+        {text:"Has your organisation stopped or scaled back any AI work that did not deliver?", options:[
+          "I do not know of anything being stopped.",
+          "No. Things continue regardless of results.",
+          "Yes, once, when something clearly failed.",
+          "Yes. Work is stopped or scaled based on evidence."
         ]},
-        {text:"If a competitor asked how AI is changing your margins, could you answer with numbers?", options:[
-          "No.",
-          "We could gesture at it, but not with real numbers.",
-          "We could answer for our biggest initiative.",
-          "Yes, clearly and across multiple areas."
+        {text:"Do you get to see the results of AI work happening elsewhere in the organisation?", options:[
+          "No. I have no idea what is happening elsewhere.",
+          "I hear about it informally.",
+          "Results are shared occasionally, without much detail.",
+          "Yes. Results are shared openly and regularly."
         ]}
       ]
     }
@@ -612,151 +759,156 @@
   var IND_DIMS = [
     {
       id:'knowledge', name:'Knowledge',
-      blurb:'Understanding what AI can and cannot do, and how to use it safely.',
+      shortName:['Knowledge'],
+      blurb:'What you know about these tools, and about using them safely.',
       questions:[
-        {text:"How would you explain what an AI agent is, in your own words?", options:[
-          "I am not sure what makes it different from a chatbot.",
-          "I know it is somehow more advanced, but I could not explain how.",
-          "I could give a broadly correct explanation, with some gaps.",
-          "I could explain clearly what makes an agent different from a chatbot, and give an example."
+        {text:"Do you know what happens to the information you type into an AI tool?", options:[
+          "No, I have never thought about it.",
+          "I assume it is fine, but I have not checked.",
+          "I know for the main tool I use, not the others.",
+          "Yes, for each tool, including whether it is kept or reused."
         ]},
-        {text:"How well do you understand the limitations of the AI tools you use, such as errors, bias, or made-up answers?", options:[
-          "I have not thought about this.",
-          "I know AI can be wrong, but I do not have a method for checking.",
-          "I generally check important outputs, though not consistently.",
-          "I know where these tools are unreliable and I check accordingly, every time it matters."
+        {text:"How do you check AI output for errors or invented detail?", options:[
+          "I do not check what comes back.",
+          "I know it can be wrong, but have no method.",
+          "I check anything important, though not consistently.",
+          "I know where each tool is unreliable and check those points."
         ]},
-        {text:"How confident are you that you are using AI tools safely with sensitive data?", options:[
-          "I have not thought about what is safe to put into an AI tool.",
-          "I am cautious out of instinct, but do not know the actual rules.",
-          "I know the rules for the tools I use most, though I am unsure about edge cases.",
-          "I know exactly what is and is not safe to share, and why."
+        {text:"Do you know what you are allowed to put into an AI tool at work?", options:[
+          "No. I have never been told.",
+          "I am careful by instinct, but do not know the rules.",
+          "I know the rules for the tools I use most.",
+          "Yes, clearly, including the grey areas and why they matter."
         ]},
-        {text:"Could you name three things AI is currently bad at, relevant to your job?", options:[
-          "No.",
-          "Maybe one.",
-          "Two, with some confidence.",
-          "Yes, clearly, and I plan my use of AI around them."
+        {text:"Do you know what the AI tools you use can connect to, such as files or email?", options:[
+          "No. I only use the chat box.",
+          "I know there is more, but not what.",
+          "I know some of it and use one or two.",
+          "Yes, and I use the connections that fit my work."
         ]}
       ]
     },
     {
       id:'usage', name:'Usage Depth',
+      shortName:['Usage Depth'],
       blurb:'How often, and how deeply, you actually use AI.',
       questions:[
         {text:"How often do you use AI tools in your work?", options:[
-          "Rarely or never.",
-          "A few times a month, for occasional tasks.",
+          "Rarely, or not at all.",
+          "About once a week.",
           "Most days, for a range of tasks.",
-          "Every day, woven into how I actually work."
+          "Every day, built into how I work."
         ]},
-        {text:"What is the most advanced thing you currently do with AI?", options:[
-          "Simple lookups, similar to a search engine.",
-          "Drafting or revising individual pieces of work.",
-          "Running a multi-step task through a defined process I have set up.",
-          "Running an automated workflow or agent that handles a task with minimal input from me."
+        {text:"What kind of work do you trust AI with?", options:[
+          "Only things that do not really matter.",
+          "Rough drafts and notes for myself.",
+          "Work that goes to colleagues.",
+          "Work that goes to clients or senior leaders."
         ]},
-        {text:"How many distinct, repeatable use cases do you have, not counting one-off experiments?", options:[
+        {text:"How many tasks do you now do with AI every time, not just occasionally?", options:[
           "None.",
           "One.",
           "Two or three.",
-          "Four or more, across different parts of my role."
+          "Four or more, across different parts of my job."
         ]},
-        {text:"Have you ever set an AI tool up to monitor something and flag or act on it without you asking each time?", options:[
-          "No, and I would not know how.",
-          "No, but I understand the idea.",
-          "I have tried something like this once.",
-          "Yes, I have at least one of these running now."
+        {text:"Have you set up an AI tool to run without you prompting it each time?", options:[
+          "No, and I would not know where to start.",
+          "No, but I understand how it would work.",
+          "I have tried once.",
+          "Yes, I have at least one running now."
         ]}
       ]
     },
     {
       id:'skill', name:'Applied Skill',
+      shortName:['Applied Skill'],
       blurb:'Your ability to prompt well and design multi-step workflows.',
       questions:[
-        {text:"When you ask an AI tool for something and the first answer is not right, what do you do?", options:[
-          "I usually give up or do it myself.",
-          "I try rephrasing, without much of a method.",
-          "I refine the prompt with more context or constraints and usually get there.",
-          "I know how to structure a prompt so I rarely need to redo it."
+        {text:"When the first answer is not right, what do you do?", options:[
+          "Give up, or do it myself.",
+          "Rephrase it, without much of a method.",
+          "Add context or constraints, and usually get there.",
+          "Work from prompts I have saved and refined over time."
         ]},
-        {text:"Have you written instructions for a custom AI assistant, GPT, or agent, rather than just a one-off prompt?", options:[
-          "No.",
-          "I have tried, but was not happy with the result.",
+        {text:"Have you written standing instructions for an AI assistant, rather than one-off prompts?", options:[
+          "No, I have not tried.",
+          "I tried, but was not happy with it.",
           "Yes, and it works reasonably well.",
           "Yes, and other people use what I built."
         ]},
         {text:"How do you approach a new, complex task with AI?", options:[
-          "I ask for the whole thing in one go and hope for the best.",
-          "I do the thinking myself and only use AI for small pieces.",
-          "I break the task into steps and use AI for each one.",
-          "I think in workflows: research, draft, refine, test, and I design the AI's role at each step."
+          "Ask for the whole thing at once.",
+          "Do the thinking myself, using AI for small pieces.",
+          "Break it into steps and use AI on each.",
+          "Design the whole sequence, deciding AI's role at each step."
         ]},
-        {text:"If you needed to identify the highest-value use for AI in your own role, could you do it?", options:[
-          "No idea where to start.",
-          "I have a vague sense but could not defend it.",
-          "I could name one strong candidate and roughly why.",
-          "I could rank my top three opportunities by effort and impact."
+        {text:"What do you give the AI to work from?", options:[
+          "Just a typed request.",
+          "Sometimes I paste in background information.",
+          "Usually examples, documents or my own past work.",
+          "I keep reusable material ready for the work I repeat."
         ]}
       ]
     },
     {
-      id:'attitude', name:'Attitude & Confidence',
-      blurb:'How you feel about AI, and how supported you feel.',
+      id:'attitude', name:'Support & Enablement',
+      shortName:['Support','&amp; Enablement'],
+      blurb:'What help you have had, and whether you can pass it on.',
       questions:[
-        {text:"How do you feel about AI's impact on your role?", options:[
-          "Anxious or unsure.",
-          "Neutral, taking a wait-and-see approach.",
-          "Positive, though I have some reservations.",
-          "Genuinely excited about what it opens up."
+        {text:"Where did what you know about AI come from?", options:[
+          "I have not learned much about it.",
+          "Entirely self-taught, in my own time.",
+          "Mostly self-taught, with some help from work.",
+          "Work training was a real part of it."
         ]},
-        {text:"Do you feel supported by your manager or organisation to build AI skills?", options:[
-          "No support that I am aware of.",
-          "Support exists on paper, but I have not felt it in practice.",
-          "I have had some support: training, time, or encouragement.",
-          "I have real support: dedicated time, clear expectations, and someone who checks in on my progress."
+        {text:"Has anyone explained what AI changes about your role, and what it does not?", options:[
+          "No. Nobody has raised it with me.",
+          "Only general reassurance, nothing specific.",
+          "Roughly, in a team conversation.",
+          "Yes, specifically, including what stays the same."
         ]},
-        {text:"Would you say your job has actually changed because of AI?", options:[
-          "Not at all.",
-          "A little, at the margins.",
-          "I have dropped or sped up several tasks because of it.",
-          "I have taken on new kinds of work I did not do before, because AI freed up the capacity."
+        {text:"If you got stuck with an AI tool at work, where would you go?", options:[
+          "Nowhere. I would not know who to ask.",
+          "A colleague, informally.",
+          "There is a person or channel, though I have not used it.",
+          "There is a clear place to go, and I have used it."
         ]},
-        {text:"If asked to teach a colleague one thing about using AI well, could you?", options:[
-          "I would not feel qualified.",
-          "I could show them one useful trick.",
-          "I could run a short, useful session.",
-          "I already do this, informally or formally."
+        {text:"Have you taught a colleague anything about using AI?", options:[
+          "No, and I would not feel qualified.",
+          "I could show someone one useful thing.",
+          "I have helped a colleague once or twice.",
+          "I do this regularly, formally or informally."
         ]}
       ]
     },
     {
       id:'behaviour', name:'Behaviour Change',
+      shortName:['Behaviour Change'],
       blurb:'Whether AI has actually changed the work you do.',
       questions:[
-        {text:"Think about the last month. How much of your routine work has genuinely moved to AI, rather than just being touched by it?", options:[
+        {text:"Roughly what share of your routine work now starts with AI?", options:[
           "None of it.",
-          "A small amount, on the easiest tasks.",
-          "A meaningful share of my routine work.",
-          "Most of my routine work now starts with AI, not with me."
+          "Less than a quarter.",
+          "Between a quarter and a half.",
+          "More than half."
         ]},
         {text:"Have you stopped doing any task entirely because AI now handles it?", options:[
-          "No.",
-          "Not entirely, but I do it much faster.",
+          "No, nothing has stopped.",
+          "Not entirely, but some are much faster.",
           "Yes, one task.",
           "Yes, more than one."
         ]},
-        {text:"Has your role's scope changed as a result of using AI well?", options:[
-          "No.",
-          "Slightly. I have more time, but I use it the same way as before.",
-          "Yes. I have taken on a new type of work with the time it freed up.",
-          "Yes, substantially. Colleagues now come to me for this kind of work."
+        {text:"Has the scope of your role changed because of how you use AI?", options:[
+          "No, it is the same work.",
+          "I have more time, but use it the same way.",
+          "I have taken on a new kind of work.",
+          "Yes, and colleagues now come to me for it."
         ]},
         {text:"If AI access was removed tomorrow, what would happen to your output?", options:[
           "No real change.",
-          "I would be slower, but otherwise fine.",
-          "I would need to drop or significantly cut back on some of what I do.",
-          "I could not deliver against my current role the way it is now defined."
+          "I would be slower, but manage.",
+          "I would have to drop or cut back some of what I do.",
+          "I could not do my job as it is now defined."
         ]}
       ]
     }
@@ -767,10 +919,49 @@
     individual:{ label:"Individual Proficiency", short:"You", dims:IND_DIMS }
   };
 
+  // Unscored, reported only. These sit outside the eleven dimensions and must never
+  // enter a dimension, tier or combined score.
+  var UNSCORED = [
+    {id:'sentiment', type:'single',
+     text:"How do you feel about AI's impact on your role?",
+     options:[
+       "Anxious or unsure.",
+       "Neutral, waiting to see.",
+       "Positive, with some reservations.",
+       "Genuinely excited about it."
+     ]},
+    {id:'barriers', type:'multi',
+     text:"What stops you using AI more at work? Tick all that apply.",
+     options:[
+       "I do not have access to good tools",
+       "I do not have time to learn it",
+       "I am not sure I am allowed to",
+       "I do not trust what it produces",
+       "I do not know what to use it for",
+       "It is not relevant to my work",
+       "Nothing, I use it as much as I want to"
+     ]},
+    {id:'tools', type:'multi', other:true,
+     text:"Which AI tools do you use for work? Tick all that apply.",
+     options:[
+       "ChatGPT",
+       "Microsoft Copilot",
+       "Claude",
+       "Gemini",
+       "Perplexity",
+       "An AI feature inside another tool I use",
+       "Something else (please name it)",
+       "None"
+     ]},
+    {id:'open', type:'text',
+     text:"What would make the biggest difference to how you use AI at work?",
+     helper:"Optional. One line is fine."}
+  ];
+
   var LEVELS = [
-    {id:'bystander', max:39, name:'Bystander', color:'#998CA0'},
-    {id:'adopter', max:59, name:'Adopter', color:'#735478'},
-    {id:'integrator', max:79, name:'Integrator', color:'#4F1352'},
+    {id:'bystander', max:24, name:'Emerging', color:'#998CA0'},
+    {id:'adopter', max:49, name:'Adopter', color:'#735478'},
+    {id:'integrator', max:74, name:'Integrator', color:'#4F1352'},
     {id:'compounder', max:100, name:'Compounder', color:'#D10079'}
   ];
 
@@ -782,10 +973,10 @@
       compounder:"AI is structural to how you compete, not a program running alongside the business. Value is measured, reinvested, and growing. The task now is to protect the advantage: keep governance ahead of capability, keep leadership honest about where the gaps still are, and keep looking for the next workflow to redesign before someone else does."
     },
     individual:{
-      bystander:"AI is not really part of how you work yet. That is a reasonable starting point, but it means you are leaving time and quality on the table that colleagues using it well are already capturing. Pick one recurring task and commit to doing it with AI every time, for two weeks.",
+      bystander:"AI is not really part of how you work yet. That is a common starting point. Pick one recurring task and commit to doing it with AI every time, for two weeks.",
       adopter:"You are getting value from AI, but on an ad hoc basis: useful in the moment, not yet a repeatable part of how you work. The next step is turning your best one-off wins into standing habits you do not have to think about.",
       integrator:"AI is a genuine part of how you work, across more than one task. The gap between you and the small group of true experts is mostly about workflow thinking: designing multi-step processes rather than handling tasks one at a time.",
-      compounder:"You are in the small group that has changed how they work because of AI, rather than only sped up the old way of working. The task now is to teach it. The evidence is consistent that organisations only get real returns once this kind of practice spreads beyond a handful of people."
+      compounder:"You are in the small group that has changed how they work because of AI, rather than only sped up the old way of working. The task now is to teach it. In Tenet's experience, organisations see real returns only once this kind of practice spreads beyond a handful of people."
     }
   };
 
@@ -795,28 +986,96 @@
     balanced:"Your organisation and your people are moving at a similar pace. That balance is rare, and worth protecting as you scale."
   };
 
+  // Rendered once beneath the Organisational Readiness heading, above that tier's bars.
+  // The individual strings address the respondent directly and need no equivalent.
+  var ORG_FRAMING = "The notes against each dimension describe what your organisation needs, not what you personally have to do. If you do not sponsor this work, they are what to raise.";
+
+  var FOCUS_INTRO = "Every dimension above carries a suggested next move. These two scored lowest, so they are where the same effort returns most. Take them in the order listed.";
+
+  // Keyed dimension id -> level id. The organisational strings are written in
+  // diagnostic voice: what the score means and what is missing. The individual
+  // strings keep the imperative voice, which addresses the respondent correctly.
   var RECOMMENDATIONS = {
-    strategy:"Name the two or three places AI could change your cost base or your offer, and test those assumptions against real data before spending more on tools.",
-    governance:"Appoint one person to own AI outcomes, even part time, before you fund anything else. Diffuse ownership is a common reason AI investment goes nowhere.",
-    data:"Fix data access for your two highest-value use cases first. No tool stack compensates for data you cannot trust or reach.",
-    culture:"Move training from what not to do toward how to build. Compliance training reduces liability. It does not build proficiency.",
-    workflow:"Pick one core workflow and redesign it around what AI now makes possible, rather than adding AI on top of the existing process.",
-    value:"Put a number on your best use case this quarter. Without a credible number, it is hard to make the case for what comes next.",
-    knowledge:"Spend an hour understanding what these tools are actually good and bad at. Most wasted effort comes from misjudging that line, in either direction.",
-    usage:"Pick one recurring task this week and commit to doing it with AI every time, not just when you remember to.",
-    skill:"Practise breaking a task into steps before you hand it to AI. Most disappointing outputs come from asking for too much in one go.",
-    attitude:"Ask your manager directly what support exists for building AI skill. If the answer is vague, that is useful information too.",
-    behaviour:"Look for one task you could stop doing entirely, not just do faster. That is where the real value shows up."
+    strategy:{
+      bystander:"Nothing has reached people about where AI fits. The starting point is two or three named places it could change the cost base or the offer, communicated rather than filed.",
+      adopter:"A direction exists but it is not reaching people. What turns it into a strategy is one priority with a named owner, funded work against it, and a date it gets reviewed.",
+      integrator:"The strategy holds internally. The untested half is the offer – nothing yet names a change a client would actually notice, or a date by which they would notice it.",
+      compounder:"Strategy is ahead of the tooling, which is the right way round. The risk from here is decay: competitive assumptions that held six months ago quietly become standard features."
+    },
+    governance:{
+      bystander:"No one owns AI outcomes. One named person, even part time, comes before any further spend – diffuse ownership is a common reason AI investment goes nowhere.",
+      adopter:"Ownership exists somewhere but people cannot name it. What is missing is one findable page: who decides, what needs approval, and who to tell when something goes wrong.",
+      integrator:"The rules are written. What has not happened is a test of them – walking a real incident, a wrong answer that reached a client, against the path on paper.",
+      compounder:"Governance is keeping pace with capability. The decisions coming next are about what AI may do unsupervised, and they cost less to settle before a team needs the answer."
+    },
+    data:{
+      bystander:"Data is the constraint here, not the tools. Access for the two highest-value use cases is what to fix first – no tool stack compensates for data people cannot reach or trust.",
+      adopter:"People reach some of what they need and work around the rest. The workarounds are the diagnostic: they mark exactly where access is broken and what it is costing.",
+      integrator:"Access is largely solved, so the exposure moves to vendors. Nothing yet answers what breaks if a key tool changes its pricing or its behaviour, or what the fallback is.",
+      compounder:"The foundations are strong. What protects them is a substitutable option for every capability now depended on, and security approvals reviewed on the cycle the tools change on."
+    },
+    culture:{
+      bystander:"Neither time nor useful training is reaching people. Time is the cheaper of the two to grant, and an hour a fortnight of it builds more capability than a compliance module nobody applies.",
+      adopter:"Training has happened but it is not changing the work. What shifts that is content about how to build rather than what to avoid, and managers setting an expectation rather than granting permission.",
+      integrator:"Capability is real but uneven. The remaining value is in transmission – a route that carries one person's good use case to the rest of the team, which does not yet exist.",
+      compounder:"The culture is working. What erodes it is a busy quarter: learning time is the first thing cut, and the cost surfaces two quarters later, well after the decision that caused it."
+    },
+    workflow:{
+      bystander:"AI is sitting on top of processes designed without it. What changes the result is one core workflow redesigned around what is now possible, rather than the same steps run faster.",
+      adopter:"There is real activity inside unchanged designs. What is missing is an end-to-end look at one process, where the time actually goes, and a rebuild rather than an acceleration.",
+      integrator:"The work has changed but the written procedures have not caught up. Two things follow: updating them, and deciding which steps genuinely no longer need a person checking.",
+      compounder:"The operating model has genuinely moved. The remaining gain is agentic – fewer steps handed back to a person, with explicit limits on what may run unsupervised."
+    },
+    value:{
+      bystander:"No credible number exists for any use case. One is enough to start, because without it the case for what comes next rests on assertion.",
+      adopter:"Estimates exist but nothing turns on them. The test is whether any piece of AI work would actually be stopped if the numbers did not hold, and by what date that gets decided.",
+      integrator:"Measurement works at the centre and stops there. Results are not reaching the teams doing the work, and people repeat what they can see paying off.",
+      compounder:"Value is measured and acted on. What keeps the number believable is reporting what was stopped alongside what was scaled – a measurement function that only reports wins stops being read."
+    },
+    knowledge:{
+      bystander:"Spend an hour on what these tools do with what you type into them, and on what your organisation allows you to put in. That hour removes most of the risk of using them at all.",
+      adopter:"You have the basics. The next gap is checking: build one habit for verifying anything you would not want to be wrong about in front of a client.",
+      integrator:"Your working knowledge is sound. Look at what your tools can connect to, such as files, email and calendars, because that is where capable users pull ahead of casual ones.",
+      compounder:"You understand these tools well. Keep it current by reading the release notes for the two or three you rely on. What they can reach changes faster than most people update their mental model of them."
+    },
+    usage:{
+      bystander:"Pick one recurring task this week and do it with AI every time, not just when you remember to. Repetition is what turns an experiment into a habit.",
+      adopter:"You use AI when you think of it. Choose the two tasks you do most often and make AI the default first step for both, for a month.",
+      integrator:"Your use is regular and broad. Push on stakes rather than volume: take one piece of work that currently feels too important to hand over, and try it with a proper check at the end.",
+      compounder:"Depth is there. Audit it once a year. Some of what you now do with AI every time is habit rather than benefit, and that is only visible if you go looking."
+    },
+    skill:{
+      bystander:"Practise breaking a task into steps before you hand it over. Most disappointing output comes from asking for too much in one go.",
+      adopter:"You can get a usable answer out of it. Work on inputs next: give the tool the actual document, example or context you would give a new colleague, rather than describing them.",
+      integrator:"Your prompting is strong. Write standing instructions for the work you repeat, so you stop rebuilding the same context every time you start.",
+      compounder:"You design workflows, not prompts. Put the next effort into chaining: linking steps so the output of one becomes the input to the next without you carrying it across by hand."
+    },
+    attitude:{
+      bystander:"Ask directly what support exists for building AI skill in your role, whether that is training, time, or someone to ask. If the answer is vague, that is useful information too.",
+      adopter:"Most of what you know you worked out yourself. Find out where the organisation's help actually sits before you need it, so the next problem does not cost you an afternoon.",
+      integrator:"You are supported and you know where to go. The gap is outward: teach one colleague one thing you worked out yourself, so the organisation keeps it when you move on.",
+      compounder:"You are well supported and passing it on. Make that repeatable. A standing half hour where people bring problems beats answering the same question privately ten times."
+    },
+    behaviour:{
+      bystander:"Look for one task you could stop doing entirely, rather than one you could do faster. That is where the change starts to show.",
+      adopter:"You are faster at the same work. The step change is subtraction: find one task you can hand over completely and stop doing yourself.",
+      integrator:"Your work has genuinely changed. Decide what the freed-up time is for, because time that is not deliberately reallocated fills itself with the work you just automated.",
+      compounder:"Your role has been rebuilt around this. Write down how you now work. It is the clearest template your organisation has for what the change looks like, and right now it exists only in your head."
+    }
   };
+
+  var DK = 'dk';
 
   // ---------- STATE ----------
   var state = {
     scope:null,
     name:'',
     company:'',
+    seniority:'',
     order:[], // list of {tierKey, dimId, dimName, dimBlurb, qIndex, question}
     current:0,
-    answers:{} // key "tierKey|dimId|qIndex" -> score
+    answers:{}, // key "tierKey|dimId|qIndex" -> score 1-4, or the string 'dk'
+    unscored:{} // key = UNSCORED id -> option text, array of texts, or free text
   };
 
   // ---------- DOM refs ----------
@@ -825,10 +1084,13 @@
   var screenResults = document.getElementById('screen-results');
   var progressWrap = document.getElementById('progressWrap');
   var progressBar = document.getElementById('progressBar');
+  var progressLabel = document.getElementById('progressLabel');
   var scopeGrid = document.getElementById('scopeGrid');
   var startBtn = document.getElementById('startBtn');
   var fldName = document.getElementById('fldName');
   var fldCompany = document.getElementById('fldCompany');
+  var fldSeniority = document.getElementById('fldSeniority');
+  var screenFinal = document.getElementById('screen-final');
 
   // Populate methodology list
   (function(){
@@ -840,6 +1102,75 @@
     wrap.innerHTML = html;
   })();
 
+  // ---------- PERSISTENCE (B4) ----------
+  // Answers are mirrored to this browser only. Nothing here is sent anywhere; the
+  // submission at the end of the run is the only thing that leaves the device.
+  var quizFinished = false;
+  var STORE_KEY = 'compounder-index.v1';
+  var MAX_AGE_MS = 7*24*60*60*1000;
+
+  function saveProgress(){
+    if(quizFinished) return;
+    try{
+      localStorage.setItem(STORE_KEY, JSON.stringify({
+        v:1, savedAt:Date.now(),
+        scope:state.scope, name:state.name, company:state.company,
+        seniority:state.seniority,
+        current:state.current, answers:state.answers, unscored:state.unscored
+      }));
+    }catch(e){ /* private window, quota, or storage blocked - progress simply is not saved */ }
+  }
+
+  function clearProgress(){
+    try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+  }
+
+  function loadProgress(){
+    try{
+      var raw = localStorage.getItem(STORE_KEY);
+      if(!raw) return null;
+      var d = JSON.parse(raw);
+      if(!d || d.v !== 1) return null;
+      if(d.scope !== 'both' && !TIERS[d.scope]) return null;
+      if(Date.now() - (d.savedAt||0) > MAX_AGE_MS){ clearProgress(); return null; }
+      if(!d.answers || typeof d.answers !== 'object') return null;
+      return d;
+    }catch(e){ return null; }
+  }
+
+  (function offerResume(){
+    var saved = loadProgress();
+    if(!saved) return;
+    var bar = document.getElementById('resumeBar');
+    var total = orderFor(saved.scope).length;
+    var at = Math.min(Math.max(saved.current|0, 0), total-1);
+    document.getElementById('resumeText').textContent =
+      'You have a diagnostic in progress, saved on this device at question ' +
+      (at+1) + ' of ' + total + '. It has not been submitted.';
+    bar.classList.remove('hidden');
+
+    document.getElementById('resumeBtn').addEventListener('click', function(){
+      state.scope = saved.scope;
+      state.name = saved.name || '';
+      state.company = saved.company || '';
+      state.seniority = saved.seniority || '';
+      state.answers = saved.answers || {};
+      state.unscored = saved.unscored || {};
+      buildOrder();
+      state.current = Math.min(Math.max(saved.current|0, 0), state.order.length-1);
+      screenIntro.classList.add('hidden');
+      screenQuiz.classList.remove('hidden');
+      progressWrap.classList.remove('hidden');
+      renderQuestion();
+      window.scrollTo(0,0);
+    });
+
+    document.getElementById('discardBtn').addEventListener('click', function(){
+      clearProgress();
+      bar.classList.add('hidden');
+    });
+  })();
+
   // Scope selection
   scopeGrid.addEventListener('click', function(e){
     var card = e.target.closest('.scope-card');
@@ -847,32 +1178,45 @@
     Array.prototype.forEach.call(scopeGrid.querySelectorAll('.scope-card'), function(c){ c.classList.remove('selected'); });
     card.classList.add('selected');
     state.scope = card.getAttribute('data-scope');
-    startBtn.disabled = false;
+    refreshStartBtn();
   });
+
+  // "Your level" is required, but "Prefer not to say" is always one of the choices,
+  // so requiring it never forces anyone to disclose anything.
+  function refreshStartBtn(){
+    startBtn.disabled = !(state.scope && fldSeniority.value);
+  }
+  fldSeniority.addEventListener('change', refreshStartBtn);
 
   startBtn.addEventListener('click', function(){
     state.name = fldName.value.trim();
     state.company = fldCompany.value.trim();
+    state.seniority = fldSeniority.value;
     buildOrder();
     state.current = 0;
     state.answers = {};
+    state.unscored = {};
     screenIntro.classList.add('hidden');
     screenQuiz.classList.remove('hidden');
     progressWrap.classList.remove('hidden');
+    saveProgress();
     renderQuestion();
   });
 
-  function buildOrder(){
-    state.order = [];
-    var tierKeys = state.scope === 'both' ? ['org','individual'] : [state.scope];
+  function orderFor(scope){
+    var order = [];
+    var tierKeys = scope === 'both' ? ['org','individual'] : [scope];
     tierKeys.forEach(function(tierKey){
       TIERS[tierKey].dims.forEach(function(dim){
         dim.questions.forEach(function(q, qi){
-          state.order.push({tierKey:tierKey, dimId:dim.id, dimName:dim.name, dimBlurb:dim.blurb, qIndex:qi, question:q});
+          order.push({tierKey:tierKey, dimId:dim.id, dimName:dim.name, dimBlurb:dim.blurb, qIndex:qi, question:q});
         });
       });
     });
+    return order;
   }
+
+  function buildOrder(){ state.order = orderFor(state.scope); }
 
   // Quiz rendering
   var qCounter = document.getElementById('qCounter');
@@ -880,6 +1224,9 @@
   var qBlurb = document.getElementById('qBlurb');
   var qText = document.getElementById('qText');
   var qOptions = document.getElementById('qOptions');
+  var qHelper = document.getElementById('qHelper');
+  var qDontKnow = document.getElementById('qDontKnow');
+  var dkBtn = document.getElementById('dkBtn');
   var backBtn = document.getElementById('backBtn');
   var nextBtn = document.getElementById('nextBtn');
 
@@ -893,6 +1240,14 @@
     qDim.textContent = tierPrefix + item.dimName;
     qBlurb.textContent = item.dimBlurb;
     qText.textContent = item.question.text;
+
+    if(item.question.helper){
+      qHelper.textContent = item.question.helper;
+      qHelper.classList.remove('hidden');
+    } else {
+      qHelper.textContent = '';
+      qHelper.classList.add('hidden');
+    }
 
     var key = answerKey(item);
     var existing = state.answers[key];
@@ -909,6 +1264,14 @@
     });
     qOptions.innerHTML = html;
 
+    if(item.question.dk){
+      qDontKnow.classList.remove('hidden');
+      dkBtn.classList.toggle('selected', existing === DK);
+    } else {
+      qDontKnow.classList.add('hidden');
+      dkBtn.classList.remove('selected');
+    }
+
     nextBtn.disabled = (existing === undefined);
     backBtn.disabled = (state.current === 0);
     nextBtn.textContent = (state.current === total-1) ? 'See results' : 'Next';
@@ -924,12 +1287,25 @@
     state.answers[key] = parseInt(opt.getAttribute('data-score'), 10);
     Array.prototype.forEach.call(qOptions.querySelectorAll('.option'), function(o){ o.classList.remove('selected'); });
     opt.classList.add('selected');
+    dkBtn.classList.remove('selected');
     nextBtn.disabled = false;
+    saveProgress();
+  });
+
+  dkBtn.addEventListener('click', function(){
+    var item = state.order[state.current];
+    if(!item.question.dk) return;
+    state.answers[answerKey(item)] = DK;
+    Array.prototype.forEach.call(qOptions.querySelectorAll('.option'), function(o){ o.classList.remove('selected'); });
+    dkBtn.classList.add('selected');
+    nextBtn.disabled = false;
+    saveProgress();
   });
 
   backBtn.addEventListener('click', function(){
     if(state.current > 0){
       state.current--;
+      saveProgress();
       renderQuestion();
     }
   });
@@ -937,6 +1313,7 @@
   nextBtn.addEventListener('click', function(){
     if(state.current < state.order.length - 1){
       state.current++;
+      saveProgress();
       renderQuestion();
     } else {
       finishQuiz();
@@ -946,17 +1323,31 @@
   function updateProgress(){
     var pct = Math.round(((state.current) / state.order.length) * 100);
     progressBar.style.width = pct + '%';
+    progressLabel.textContent = 'Progress: ' + pct + '%';
   }
 
   // ---------- SCORING ----------
+  // A don't-know is excluded from the average rather than scored, so the divisor is
+  // the number of scored answers, not a constant 4. ((sum - n) / 3n) * 100 reduces to
+  // the old ((sum - 4) / 12) * 100 at n = 4, so a dimension with no don't-knows is
+  // unchanged and existing rows stay comparable. A uniform run returns 0 / 33 / 67 /
+  // 100 at any n, so the 24 / 49 / 74 / 100 bands hold whatever the divisor.
+  //
+  // Note the deliberate `typeof v === 'number'` test. The previous line was
+  // `sum += (state.answers[key] || 1)`, under which any falsy sentinel - 0, null, -1 -
+  // would have scored as the worst available answer with no visible failure.
   function computeDimScore(tierKey, dim){
-    var sum = 0;
+    var sum = 0, n = 0;
     dim.questions.forEach(function(q, qi){
-      var key = tierKey+'|'+dim.id+'|'+qi;
-      sum += (state.answers[key] || 1);
+      var v = state.answers[tierKey+'|'+dim.id+'|'+qi];
+      if(typeof v === 'number' && v >= 1 && v <= 4){ sum += v; n++; }
+      else if(v !== DK){ sum += 1; n++; }   // unanswered still scores 1, as before
     });
-    // sum range 4-16 -> normalise 0-100
-    return Math.round(((sum - 4) / 12) * 100);
+    // Cannot occur under the current routing - every dimension keeps at least two
+    // scored questions - but guard it anyway: the failure mode is NaN on a client's
+    // results page, and the routing is the sort of thing that gets extended later.
+    if(n === 0) return {score:null, answered:0};
+    return {score: Math.round(((sum - n) / (3 * n)) * 100), answered:n};
   }
 
   function getLevel(score){
@@ -967,17 +1358,28 @@
   }
 
   function finishQuiz(){
+    if(quizFinished) return;
+    quizFinished = true;
+    nextBtn.disabled = true;
+    clearProgress();
     progressBar.style.width = '100%';
+    progressLabel.textContent = 'Progress: 100%';
     var results = {};
-    var allDimScores = []; // {tierKey, dimId, dimName, score}
+    var allDimScores = []; // {tierKey, dimId, dimName, score, answered}
 
     ['org','individual'].forEach(function(tierKey){
       if(state.scope !== 'both' && state.scope !== tierKey) return;
-      var dimScores = TIERS[tierKey].dims.map(function(dim){
-        var s = computeDimScore(tierKey, dim);
-        allDimScores.push({tierKey:tierKey, dimId:dim.id, dimName:dim.name, score:s});
-        return {id:dim.id, name:dim.name, score:s};
+      var dimScores = [];
+      TIERS[tierKey].dims.forEach(function(dim){
+        var r = computeDimScore(tierKey, dim);
+        // `answered` lets reporting tell a dimension scored on four answers from one
+        // scored on two. Rows written before this change carry no key; read a missing
+        // `answered` as 4.
+        allDimScores.push({tierKey:tierKey, dimId:dim.id, dimName:dim.name, score:r.score, answered:r.answered});
+        if(r.score === null) return;  // omitted from the radar, the bars and the tier average
+        dimScores.push({id:dim.id, name:dim.name, shortName:dim.shortName, score:r.score, answered:r.answered});
       });
+      if(!dimScores.length) return;
       var tierScore = Math.round(dimScores.reduce(function(a,b){return a+b.score;},0) / dimScores.length);
       results[tierKey] = {dimScores:dimScores, tierScore:tierScore};
     });
@@ -987,16 +1389,94 @@
       combinedScore = Math.round(0.6*results.org.tierScore + 0.4*results.individual.tierScore);
     }
 
+    // Fires here, at the end of question 44, and not after the unscored section.
+    // Anyone who abandons "Before you finish" keeps their whole scored submission.
     submitToSupabase(results, combinedScore, allDimScores);
     renderResults(results, combinedScore, allDimScores);
+    renderFinal();
 
     setTimeout(function(){
       screenQuiz.classList.add('hidden');
-      screenResults.classList.remove('hidden');
+      screenFinal.classList.remove('hidden');
       progressWrap.classList.add('hidden');
       window.scrollTo(0,0);
     }, 150);
   }
+
+  // ---------- BEFORE YOU FINISH (unscored) ----------
+  var finalBody = document.getElementById('finalBody');
+
+  function renderFinal(){
+    var html = '';
+    UNSCORED.forEach(function(q){
+      html += '<div class="u-block" data-uid="'+q.id+'">';
+      html += '<div class="u-text">'+q.text+'</div>';
+      if(q.helper) html += '<p class="u-helper">'+q.helper+'</p>';
+      if(q.type === 'text'){
+        html += '<textarea data-uid="'+q.id+'" rows="3"></textarea>';
+      } else {
+        html += '<div class="u-options">';
+        q.options.forEach(function(opt, i){
+          var input = q.type === 'multi'
+            ? '<input type="checkbox" data-uid="'+q.id+'" data-i="'+i+'">'
+            : '<input type="radio" name="u-'+q.id+'" data-uid="'+q.id+'" data-i="'+i+'">';
+          html += '<label class="u-option">'+input+'<span>'+opt+'</span></label>';
+        });
+        html += '</div>';
+        if(q.other) html += '<div class="u-other"><input type="text" id="u-other-'+q.id+'" placeholder="If something else, name it"></div>';
+      }
+      html += '</div>';
+    });
+    finalBody.innerHTML = html;
+  }
+
+  finalBody.addEventListener('change', function(e){
+    var input = e.target;
+    var uid = input.getAttribute && input.getAttribute('data-uid');
+    if(!uid) return;
+    var label = input.closest('.u-option');
+    if(input.type === 'radio'){
+      var block = finalBody.querySelector('.u-block[data-uid="'+uid+'"]');
+      Array.prototype.forEach.call(block.querySelectorAll('.u-option'), function(l){ l.classList.remove('selected'); });
+      if(label) label.classList.add('selected');
+    } else if(input.type === 'checkbox' && label){
+      label.classList.toggle('selected', input.checked);
+    }
+    collectUnscored();
+  });
+  finalBody.addEventListener('input', function(e){
+    if(e.target.tagName === 'TEXTAREA' || e.target.type === 'text') collectUnscored();
+  });
+
+  function collectUnscored(){
+    var out = {};
+    UNSCORED.forEach(function(q){
+      if(q.type === 'text'){
+        var ta = finalBody.querySelector('textarea[data-uid="'+q.id+'"]');
+        if(ta && ta.value.trim()) out[q.id] = ta.value.trim();
+        return;
+      }
+      var picked = [];
+      Array.prototype.forEach.call(finalBody.querySelectorAll('[data-uid="'+q.id+'"][data-i]'), function(inp){
+        if(inp.checked) picked.push(q.options[parseInt(inp.getAttribute('data-i'), 10)]);
+      });
+      if(q.type === 'single'){ if(picked.length) out[q.id] = picked[0]; }
+      else if(picked.length) out[q.id] = picked;
+      if(q.other){
+        var other = document.getElementById('u-other-'+q.id);
+        if(other && other.value.trim()) out[q.id+'_other'] = other.value.trim();
+      }
+    });
+    state.unscored = out;
+  }
+
+  document.getElementById('finalBtn').addEventListener('click', function(){
+    collectUnscored();
+    submitUnscored();
+    screenFinal.classList.add('hidden');
+    screenResults.classList.remove('hidden');
+    window.scrollTo(0,0);
+  });
 
   // ---------- SUPABASE (best-effort, never blocks the results screen) ----------
   var supabaseClient = null;
@@ -1006,12 +1486,21 @@
     }
   }catch(e){ console.warn('Supabase client not initialised:', e); }
 
+  var submitted = false;
+
+  // Set only when the insert comes back with a row id, which is what the unscored
+  // section needs in order to update the same row rather than write a second one.
+  var submissionId = null;
+
   function submitToSupabase(results, combinedScore, allDimScores){
+    if(submitted) return;          // one row per completed run, however many times the button is clicked
     if(!supabaseClient) return;
+    submitted = true;
     var row = {
       respondent_name: state.name || null,
       company: state.company || null,
       scope: state.scope,
+      seniority: state.seniority || null,
       org_score: results.org ? results.org.tierScore : null,
       individual_score: results.individual ? results.individual.tierScore : null,
       combined_score: combinedScore,
@@ -1020,16 +1509,37 @@
       dim_scores: allDimScores,
       answers: state.answers
     };
-    supabaseClient.from('submissions').insert([row]).then(function(res){
-      if(res.error) console.warn('Supabase insert failed:', res.error.message);
+    // `seniority` is a new column and the returning select needs a read policy. If
+    // either is missing the whole insert is rejected, so fall back to the shape that
+    // is known to work rather than lose a completed submission. The fallback drops
+    // seniority and the row id, which is the only thing the unscored update needs.
+    supabaseClient.from('submissions').insert([row]).select('id').then(function(res){
+      if(!res.error){
+        submissionId = (res.data && res.data[0] && res.data[0].id) || null;
+        return;
+      }
+      console.warn('Supabase insert failed, retrying without the new fields:', res.error.message);
+      var fallback = {};
+      Object.keys(row).forEach(function(k){ if(k !== 'seniority') fallback[k] = row[k]; });
+      supabaseClient.from('submissions').insert([fallback]).then(function(res2){
+        if(res2.error) console.warn('Supabase insert failed:', res2.error.message);
+      });
+    });
+  }
+
+  function submitUnscored(){
+    if(!supabaseClient || !submissionId) return;
+    if(!Object.keys(state.unscored).length) return;
+    supabaseClient.from('submissions').update({unscored: state.unscored}).eq('id', submissionId).then(function(res){
+      if(res.error) console.warn('Supabase unscored update failed:', res.error.message);
     });
   }
 
   function radarSVG(dims, scores, color, size){
-    size = size || 320;
+    size = size || 460;
     var n = dims.length;
     var cx = size/2, cy = size/2;
-    var maxR = size/2 - 78;
+    var maxR = size/2 - 92;
     var points = [];
     var gridPolys = [0.25,0.5,0.75,1].map(function(){ return []; });
     var labels = '';
@@ -1047,21 +1557,19 @@
         gridPolys[gi].push(gx+','+gy);
       });
 
-      var lx = cx + (maxR+30)*Math.cos(angle);
-      var ly = cy + (maxR+30)*Math.sin(angle);
+      var lx = cx + (maxR+26)*Math.cos(angle);
+      var ly = cy + (maxR+26)*Math.sin(angle);
       var anchor = 'middle';
       if(Math.cos(angle) > 0.3) anchor = 'start';
       else if(Math.cos(angle) < -0.3) anchor = 'end';
-      var words = dims[i].split(' ');
-      var lineY = ly;
+      // Label lines come from the dimension's shortName, written for the chart, so
+      // nothing is split mid-phrase and no ampersand is left orphaned on its own line.
+      var lines = Array.isArray(dims[i]) ? dims[i] : [String(dims[i])];
       var tspans = '';
-      // wrap into max 2 lines
-      var mid = Math.ceil(words.length/2);
-      var line1 = words.slice(0, mid).join(' ');
-      var line2 = words.slice(mid).join(' ');
-      tspans += '<tspan x="'+lx+'" dy="0">'+line1+'</tspan>';
-      if(line2) tspans += '<tspan x="'+lx+'" dy="12">'+line2+'</tspan>';
-      labels += '<text x="'+lx+'" y="'+lineY+'" text-anchor="'+anchor+'" font-size="10.5" fill="#404040" font-family="Arial, Helvetica, sans-serif">'+tspans+'</text>';
+      for(var li=0; li<lines.length; li++){
+        tspans += '<tspan x="'+lx+'" dy="'+(li===0?0:13)+'">'+lines[li]+'</tspan>';
+      }
+      labels += '<text x="'+lx+'" y="'+ly+'" text-anchor="'+anchor+'" font-size="11.5" fill="#404040" font-family="Arial, Helvetica, sans-serif">'+tspans+'</text>';
     }
 
     var gridSVG = '';
@@ -1076,7 +1584,10 @@
       axisSVG += '<line x1="'+cx+'" y1="'+cy+'" x2="'+ex+'" y2="'+ey+'" stroke="#BFBFBF" stroke-width="1"/>';
     }
 
-    var svg = '<svg viewBox="0 0 '+size+' '+(size+20)+'" style="width:100%;max-width:'+size+'px;height:auto;display:block;overflow:visible;" xmlns="http://www.w3.org/2000/svg">'+
+    // Crop the empty band above and below the labels so the chart does not sit in a
+    // pool of whitespace. overflow is visible, so nothing is clipped by the tighter box.
+    var vbTop = Math.round(size*0.10), vbH = Math.round(size*0.82);
+    var svg = '<svg viewBox="0 '+vbTop+' '+size+' '+vbH+'" style="width:100%;max-width:'+size+'px;height:auto;display:block;overflow:visible;" xmlns="http://www.w3.org/2000/svg">'+
       gridSVG + axisSVG +
       '<polygon points="'+points.join(' ')+'" fill="'+color+'" fill-opacity="0.28" stroke="'+color+'" stroke-width="2.5"/>'+
       labels +
@@ -1091,7 +1602,9 @@
 
     var namePart = state.name ? state.name : 'Your';
     var possessive = state.name ? (state.name + "'s") : 'Your';
-    heading.textContent = state.company ? (possessive + ' results — ' + state.company) : (possessive + ' results');
+    heading.textContent = state.company
+      ? (possessive + ' Compounder Index results – ' + state.company)
+      : (possessive + ' Compounder Index results');
     sub.textContent = 'A scored view of AI readiness, dimension by dimension.';
 
     var html = '';
@@ -1115,29 +1628,46 @@
         '<div class="level-badge" style="background:'+level.color+'">'+level.name+'</div>'+
         '<div class="score-big">'+r.tierScore+'<span> / 100</span></div>'+
         '<p>'+NARRATIVES[tierKey][level.id]+'</p>'+
-        '<div class="radar-wrap">'+radarSVG(r.dimScores.map(function(d){return d.name;}), r.dimScores.map(function(d){return d.score;}), level.color)+'</div>'+
+        '<div class="radar-wrap">'+radarSVG(r.dimScores.map(function(d){return d.shortName;}), r.dimScores.map(function(d){return d.score;}), level.color)+'</div>'+
+        (tierKey === 'org' ? '<p class="tier-framing">'+ORG_FRAMING+'</p>' : '')+
         '<div class="bars">'+
         r.dimScores.map(function(d){
+          // getLevel() on the dimension score, not the tier score: the string has to
+          // match the number printed on this row.
           return '<div class="bar-row"><div class="bar-label-row"><span class="dn">'+d.name+'</span><span class="dv">'+d.score+'</span></div>'+
-            '<div class="bar-track"><div class="bar-fill" style="width:'+d.score+'%"></div></div></div>';
+            '<div class="bar-track"><div class="bar-fill" style="width:'+d.score+'%"></div></div>'+
+            '<p class="bar-rec">'+RECOMMENDATIONS[d.id][getLevel(d.score).id]+'</p></div>';
         }).join('') +
         '</div>'+
         '</div>';
     });
 
-    // priority moves: two lowest across all dims answered
-    var sorted = allDimScores.slice().sort(function(a,b){ return a.score - b.score; });
+    // priority moves: two lowest across all dims answered. Each dimension already
+    // carries its recommendation against its own bar, so this names them and stops.
+    var sorted = allDimScores.filter(function(d){ return d.score !== null; })
+                             .sort(function(a,b){ return a.score - b.score; });
     var top2 = sorted.slice(0,2);
-    html += '<h2>Where to focus first</h2>';
-    top2.forEach(function(d){
-      html += '<div class="priority-item"><span class="pt-name">'+d.dimName+'</span> — <span class="pt-score">'+d.score+' / 100</span>'+
-        '<p>'+RECOMMENDATIONS[d.dimId]+'</p></div>';
-    });
+    if(top2.length){
+      html += '<h2>Where to focus first</h2>';
+      html += '<p class="focus-intro">'+FOCUS_INTRO+'</p>';
+      top2.forEach(function(d){
+        html += '<div class="priority-item"><span class="pt-name">'+d.dimName+'</span> – <span class="pt-score">'+d.score+' / 100</span></div>';
+      });
+    }
+
+    html += '<div class="contact-block">'+
+      '<h2>Talk it through</h2>'+
+      '<p>These results are a starting point, not a plan. If you want to work through what they mean for your organisation, get in touch.</p>'+
+      '<div class="contact-name">Callum Walden</div>'+
+      '<div class="contact-line"><a href="mailto:callum.walden@tenetadvisory.com.au?subject=The%20Compounder%20Index">callum.walden@tenetadvisory.com.au</a></div>'+
+      '<div class="contact-org">Tenet Advisory &amp; Investments</div>'+
+      '</div>';
 
     body.innerHTML = html;
   }
 
   document.getElementById('restartBtn').addEventListener('click', function(){
+    clearProgress();
     location.reload();
   });
   document.getElementById('printBtn').addEventListener('click', function(){
