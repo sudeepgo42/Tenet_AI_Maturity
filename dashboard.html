@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reporting — The Compounder Index</title>
+<title>Reporting — The AI Readiness Diagnostic</title>
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
@@ -72,7 +72,7 @@
 
   <section class="card" id="gate">
     <h1>Reporting</h1>
-    <p>This page shows aggregated, non-identifying results from The Compounder Index. It is not linked from the public diagnostic. Enter the shared passphrase to continue.</p>
+    <p>This page shows aggregated, non-identifying results from The AI Readiness Diagnostic. It is not linked from the public diagnostic. Enter the shared passphrase to continue.</p>
     <input type="password" id="passInput" placeholder="Passphrase">
     <div class="error-msg" id="passError" style="display:none;">That passphrase is not correct.</div>
     <div><button class="btn" id="unlockBtn">View reporting</button></div>
@@ -81,7 +81,7 @@
 
   <section class="card hidden" id="dash">
     <h1>Reporting</h1>
-    <p>Aggregated results across every submission to The Compounder Index. Individual names and organisations are never shown here. To see or export raw responses, use the Table Editor in your Supabase project.</p>
+    <p>Aggregated results across every submission to The AI Readiness Diagnostic. Names are not collected and organisations are never shown here. To see or export raw responses, use the Table Editor in your Supabase project.</p>
 
     <div class="refresh-row"><button class="btn btn-secondary" id="refreshBtn">Refresh</button></div>
 
@@ -90,16 +90,16 @@
 
 </main>
 
-<footer>The Compounder Index is a Tenet Advisory &amp; Investments diagnostic.</footer>
+<footer>The AI Readiness Diagnostic is a Tenet Advisory &amp; Investments diagnostic.</footer>
 
 <script>
 (function(){
 
   var ORG_DIM_NAMES = ['Strategy & Ambition','Leadership & Governance','Data & Technology Foundation','Capability & Culture','Workflow & Operating Model','Value & Measurement'];
-  var IND_DIM_NAMES = ['Knowledge','Usage Depth','Applied Skill','Attitude & Confidence','Behaviour Change'];
+  var IND_DIM_NAMES = ['Knowledge','Usage Depth','Applied Skill','Support & Enablement','Behaviour Change'];
 
   var LEVELS = [
-    {id:'bystander', name:'Bystander', color:'#998CA0'},
+    {id:'emerging', name:'Emerging', color:'#998CA0'},
     {id:'adopter', name:'Adopter', color:'#735478'},
     {id:'integrator', name:'Integrator', color:'#4F1352'},
     {id:'compounder', name:'Compounder', color:'#D10079'}
